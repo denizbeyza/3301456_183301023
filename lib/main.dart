@@ -16,10 +16,9 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int index = 0;
-  final pages = const[
+  final pages = const [
     HomePage(),
     ShoppingListPage(),
-    SizedBox(),
     SizedBox(),
   ];
 
@@ -40,8 +39,7 @@ class _MyAppState extends State<MyApp> {
                 tabItem(
                     idx: 1,
                     icon: const Icon(Icons.format_list_bulleted_rounded)),
-                tabItem(idx: 2, icon: const Icon(Icons.wallet_travel_outlined)),
-                tabItem(idx: 3, icon: const Icon(Icons.flag_outlined)),
+                tabItem(idx: 2, icon: const Icon(Icons.settings)),
               ],
             ),
           ),
