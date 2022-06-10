@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.orange,
+          primarySwatch: Colors.red,
         ),
         home: const MainWidget());
   }
@@ -97,7 +97,8 @@ class _MainWidgetState extends State<MainWidget> {
   Widget tabItem({required int idx, required Icon icon}) {
     final isSelected = idx == index;
     return IconTheme(
-        data: IconThemeData(color: isSelected ? Colors.orange : Colors.black),
+        data: IconThemeData(
+            color: isSelected ? Theme.of(context).primaryColor : Colors.black),
         child: IconButton(
             onPressed: () {
               onChangedTab(idx);

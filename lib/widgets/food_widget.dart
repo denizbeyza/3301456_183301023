@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class FoodWidget extends StatelessWidget {
   final String text;
@@ -23,7 +24,7 @@ class FoodWidget extends StatelessWidget {
         }
       },
       child: Container(
-        color: Colors.orange,
+        color: Theme.of(context).primaryColor,
         height: 100,
         width: 100,
         child: Column(
@@ -37,21 +38,11 @@ class FoodWidget extends StatelessWidget {
             Expanded(
                 flex: 3,
                 child: Center(
-                    child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Flexible(
-                      child: Text(
-                        text,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                    Text(
-                      text2,
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                  ],
+                    child: Flexible(
+                  child: Text(text,
+                      overflow: TextOverflow.ellipsis,
+                      style:
+                          GoogleFonts.jost(color: Colors.white, fontSize: 15)),
                 ))),
           ],
         ),

@@ -30,14 +30,15 @@ class CustomAppbar extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Icon(
+        Icon(
           Icons.dinner_dining_rounded,
           size: 35,
-          color: Colors.orange,
+          color: Theme.of(context).primaryColor,
         ),
         Text(
           "Recipe Keeper",
-          style: GoogleFonts.oswald(color: Colors.orange, fontSize: 30),
+          style: GoogleFonts.oswald(
+              color: Theme.of(context).primaryColor, fontSize: 30),
         ),
       ],
     );

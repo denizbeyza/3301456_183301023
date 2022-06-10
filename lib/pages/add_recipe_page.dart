@@ -28,7 +28,6 @@ class _AddRecipePageState extends State<AddRecipePage> {
       length: 5,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -37,15 +36,20 @@ class _AddRecipePageState extends State<AddRecipePage> {
               ),
               IconButton(
                   onPressed: () {
-                       
-                    recipeBloc.add(RecipeAddEvent(recipe: Recipe(
-                        title: _title.text,
-                        cookingTime: int.parse(_cookingTime.text),
-                        directions: _directories.text,
-                        ingredients: _ingredients.text,
-                        notes: _notes.text,
-                        photo: "",
-                        preparationTime: int.parse(_preparationTime.text))));
+                    recipeBloc.add(RecipeAddEvent(
+                        recipe: Recipe(
+                      title: _title.text,
+                      cookingTime: _cookingTime.text.isEmpty
+                          ? null
+                          : int.parse(_cookingTime.text),
+                      directions: _directories.text,
+                      ingredients: _ingredients.text,
+                      notes: _notes.text,
+                      photo: "",
+                      preparationTime: _preparationTime.text.isEmpty
+                          ? null
+                          : int.parse(_preparationTime.text),
+                    )));
                     Navigator.pop(context);
                   },
                   icon: Icon(

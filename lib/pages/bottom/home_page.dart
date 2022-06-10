@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
         initialIndex: 0,
         child: Column(children: <Widget>[
           TabBar(
-            labelColor: Colors.orange,
+            labelColor: Theme.of(context).primaryColor,
             unselectedLabelColor: Colors.black,
             tabs: _tabs,
           ),
