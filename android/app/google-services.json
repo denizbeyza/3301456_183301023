@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "934297088685",
-    "project_id": "recipe-keeper-37398",
-    "storage_bucket": "recipe-keeper-37398.appspot.com"
+    "project_number": "1064156410460",
+    "project_id": "recipe-keep-6c1fb",
+    "storage_bucket": "recipe-keep-6c1fb.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:934297088685:android:482eec82f6fc9565e98c24",
+        "mobilesdk_app_id": "1:1064156410460:android:27696794c3fd3e0200ac99",
         "android_client_info": {
           "package_name": "com.example.recipe_keep"
         }
       },
       "oauth_client": [
         {
-          "client_id": "934297088685-gefj4nrm9phn1d9j12ii15t1abj39m5c.apps.googleusercontent.com",
+          "client_id": "1064156410460-ga13t1rqs42uq0kfqcs30igdid676eqa.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBoQCtvU8OVggg2Gly8iqU9khqAlM9nvgM"
+          "current_key": "AIzaSyDeD_0LHAVol0UsNCFugRTj-v3N00QXDDE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "934297088685-gefj4nrm9phn1d9j12ii15t1abj39m5c.apps.googleusercontent.com",
+              "client_id": "1064156410460-ga13t1rqs42uq0kfqcs30igdid676eqa.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

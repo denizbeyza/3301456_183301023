@@ -11,29 +11,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _tabPages = [
     Padding(
-      padding: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(5),
       child: GridView.count(
           crossAxisCount: 3,
-          crossAxisSpacing: 4,
-          mainAxisSpacing: 4,
-          children: const[
-            FoodWidget(
-                text: "salam",
-                url:
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiCCrQsMszNhkmDS99cCfzUHhg5-3_1Lr1zg&usqp=CAU",
-                text2: "4")
-          ]),
-    ),
-    Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: GridView.count(
-          crossAxisCount: 3,
-          crossAxisSpacing: 4,
-          mainAxisSpacing: 4,
+          crossAxisSpacing: 5,
+          mainAxisSpacing: 5,
           children: const [
             FoodWidget(
                 text: "mayonezli pilav",
-             
                 url:
                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgv9xaDAT2JjUZmGe-Cl3lf58xJtqro5FoLw&usqp=CAU",
                 text2: "4")
@@ -43,10 +28,7 @@ class _HomePageState extends State<HomePage> {
   ];
   final _tabs = const [
     Tab(
-      text: "Courses",
-    ),
-    Tab(
-      text: "Categories",
+      text: "Recipes",
     ),
     Tab(
       text: "Favorites",

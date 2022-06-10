@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:recipe_keep/pages/add_recipe_page.dart';
-import 'package:recipe_keep/pages/search_recipe.dart';
 
 class CustomAppbar extends StatelessWidget {
   const CustomAppbar({Key? key}) : super(key: key);
@@ -14,30 +12,6 @@ class CustomAppbar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             logo(context),
-            IconButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const AddRecipePage(),
-                      ));
-                },
-                icon: const Icon(
-                  Icons.add,
-                  color: Colors.orange,
-                )),
-            IconButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SearchRecipePage(),
-                      ));
-                },
-                icon: const Icon(
-                  Icons.search,
-                  color: Colors.orange,
-                ))
           ],
         ),
         Row(
@@ -52,22 +26,20 @@ class CustomAppbar extends StatelessWidget {
     );
   }
 
-  Padding logo(context) {
-    return Padding(
-      padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.25),
-      child: Row(
-        children: [
-          const Icon(
-            Icons.dinner_dining_rounded,
-            size: 25,
-            color: Colors.orange,
-          ),
-          Text(
-            "Recipe Keeper",
-            style: GoogleFonts.oswald(color: Colors.orange, fontSize: 25),
-          ),
-        ],
-      ),
+  Row logo(context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Icon(
+          Icons.dinner_dining_rounded,
+          size: 35,
+          color: Colors.orange,
+        ),
+        Text(
+          "Recipe Keeper",
+          style: GoogleFonts.oswald(color: Colors.orange, fontSize: 30),
+        ),
+      ],
     );
   }
 }

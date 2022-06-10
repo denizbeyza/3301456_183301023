@@ -1,10 +1,21 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe_keep/blocs/bloc/recipe_bloc.dart';
+import 'package:recipe_keep/pages/add_recipe_page.dart';
 import 'package:recipe_keep/pages/bottom/home_page.dart';
+import 'package:recipe_keep/pages/bottom/search_page.dart';
+import 'package:recipe_keep/pages/bottom/settings_page.dart';
 import 'package:recipe_keep/pages/bottom/shopping_list_page.dart';
 import 'package:recipe_keep/widgets/appbar.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(BlocProvider(
+    create: (context) => RecipeBloc(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -15,13 +26,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int index = 0;
-  final pages = const [
-    HomePage(),
-    ShoppingListPage(),
-    SizedBox(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,29 +34,64 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           primarySwatch: Colors.orange,
         ),
-        home: Scaffold(
-          bottomNavigationBar: BottomAppBar(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                tabItem(idx: 0, icon: const Icon(Icons.home_outlined)),
-                tabItem(
-                    idx: 1,
-                    icon: const Icon(Icons.format_list_bulleted_rounded)),
-                tabItem(idx: 2, icon: const Icon(Icons.settings)),
-              ],
-            ),
+        home: const MainWidget());
+  }
+}
+
+class MainWidget extends StatefulWidget {
+  const MainWidget({Key? key}) : super(key: key);
+
+  @override
+  State<MainWidget> createState() => _MainWidgetState();
+}
+
+class _MainWidgetState extends State<MainWidget> {
+  int index = 0;
+  final pages = const [
+    HomePage(),
+    SearchRecipePage(),
+    ShoppingListPage(),
+    SettingsPage(),
+  ];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      floatingActionButton: index == 0
+          ? FloatingActionButton(
+              child: const Icon(Icons.add, color: Colors.white),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AddRecipePage(),
+                    ));
+              },
+            )
+          : const SizedBox(),
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            tabItem(idx: 0, icon: const Icon(Icons.home_outlined)),
+            tabItem(idx: 1, icon: const Icon(Icons.search)),
+            tabItem(
+                idx: 2, icon: const Icon(Icons.format_list_bulleted_rounded)),
+            tabItem(idx: 3, icon: const Icon(Icons.settings)),
+          ],
+        ),
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const CustomAppbar(),
+              const SizedBox(height: 15),
+              pages[index]
+            ],
           ),
-          body: SafeArea(
-            child: Column(
-              children: [
-                const CustomAppbar(),
-                const SizedBox(height: 15),
-                pages[index]
-              ],
-            ),
-          ),
-        ));
+        ),
+      ),
+    );
   }
 
   Widget tabItem({required int idx, required Icon icon}) {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class SearchInput extends StatelessWidget {
+class SearchWidget extends StatelessWidget {
   final TextEditingController textController;
   final String hintText;
-  const SearchInput(
+  const SearchWidget(
       {required this.textController, required this.hintText, Key? key})
       : super(key: key);
 
@@ -18,34 +18,42 @@ class SearchInput extends StatelessWidget {
             color: Colors.grey.withOpacity(.1)),
       ]),
       child: TextField(
-        autofocus: true,
+        autofocus: false,
         controller: textController,
         onChanged: (value) {
           //Do something wi
         },
         decoration: InputDecoration(
+          prefixIcon: Icon(
+            Icons.search,
+            color: Colors.grey[500]!,
+          ),
           suffixIcon: IconButton(
             onPressed: () {
               textController.clear();
             },
-            icon: const Icon(Icons.clear),
+            icon: const Icon(
+              Icons.clear,
+              color: Colors.black,
+            ),
           ),
           filled: true,
           fillColor: Colors.white,
           hintText: hintText,
-          hintStyle: const TextStyle(color: Colors.grey),
+          hintStyle:
+              const TextStyle(color: Colors.grey, fontWeight: FontWeight.w300),
           contentPadding:
-              const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+              const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
           border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15.0)),
+            borderRadius: BorderRadius.all(Radius.circular(45.0)),
           ),
-          enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.white, width: 1.0),
-            borderRadius: BorderRadius.all(Radius.circular(15.0)),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey[300]!, width: 1.0),
+            borderRadius: const BorderRadius.all(Radius.circular(45.0)),
           ),
-          focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.white, width: 2.0),
-            borderRadius: BorderRadius.all(Radius.circular(15.0)),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey[400]!, width: 1.5),
+            borderRadius: const BorderRadius.all(Radius.circular(45.0)),
           ),
         ),
       ),
