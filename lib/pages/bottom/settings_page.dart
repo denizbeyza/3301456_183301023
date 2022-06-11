@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:recipe_keep/models/recipe.dart';
 import 'package:recipe_keep/services/recipes/recipe_service.dart';
+
+import '../auth/login_page.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -12,6 +15,8 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
   final RecipesService _service = RecipesService();
   @override
   Widget build(BuildContext context) {
@@ -19,25 +24,22 @@ class _SettingsPageState extends State<SettingsPage> {
       children: [
         ElevatedButton(
             onPressed: () async {
-              // firestore
-              //     .collection('recipes')
-              //     .doc('1')
-              //     .get()
-              //     .then((DocumentSnapshot ds) async {
-              //   print(Recipe.fromJson(ds.data()).title);
-              // });
-              bool status = await _service.addRecipe(Recipe(
-                  title: "Ispanak",
-                  cookingTime: 15,
-                  directions: "directions",
-                  ingredients: "ingredients",
-                  notes: "notes",
-                  photo: "",
-                  preparationTime: 3));
-              print(status ? "============success" : "===============error");
+              for (var element in await _service.getRecipes()) {
+                print(element.cookingTime);
+              }
             },
-            child: const Text("recipe ekle")),
-            
+            child: const Text("deeme")),
+        ElevatedButton(
+            onPressed: () async {
+              _auth.signOut();
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LoginPage(),
+                  ),
+                  (route) => false);
+            },
+            child: const Text("Çıkış Yap")),
       ],
     );
   }

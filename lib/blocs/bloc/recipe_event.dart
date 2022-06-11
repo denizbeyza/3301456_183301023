@@ -7,10 +7,15 @@ abstract class RecipeEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class RecipeAddEvent extends RecipeEvent {
+class AddRecipeEvent extends RecipeEvent {
+  final String image;
   final Recipe recipe;
-  const RecipeAddEvent({required this.recipe});
+  const AddRecipeEvent( {required this.recipe,this.image = ""});
 
   @override
-  List<Object> get props => [recipe];
+  List<Object> get props => [recipe,image];
 }
+
+class GetRecipesEvent extends RecipeEvent {}
+
+class RefreshRecipeEvent extends RecipeEvent {}

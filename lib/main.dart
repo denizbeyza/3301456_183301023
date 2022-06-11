@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +8,9 @@ import 'package:recipe_keep/pages/bottom/home_page.dart';
 import 'package:recipe_keep/pages/bottom/search_page.dart';
 import 'package:recipe_keep/pages/bottom/settings_page.dart';
 import 'package:recipe_keep/pages/bottom/shopping_list_page.dart';
+import 'package:recipe_keep/pages/auth/login_page.dart';
 import 'package:recipe_keep/widgets/appbar.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,15 +29,40 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  late bool status;
+
+  loginControl() {
+    if (FirebaseAuth.instance.currentUser == null) {
+      status = false;
+    } else {
+      status = true;
+    }
+  }
+
+  @override
+  void initState() {
+    loginControl();
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarBrightness: Brightness.dark,
+      statusBarColor: Colors.transparent,
+      systemNavigationBarIconBrightness: Brightness.dark,
+      systemNavigationBarColor: Colors.white,
+    ));
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.red,
+          primarySwatch: Colors.orange,
         ),
-        home: const MainWidget());
+        home: status ? const MainWidget() : const LoginPage());
   }
 }
 

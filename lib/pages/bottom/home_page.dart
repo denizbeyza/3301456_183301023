@@ -1,5 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_keep/widgets/food_widget.dart';
+
+import '../../blocs/bloc/recipe_bloc.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -8,21 +13,48 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+Completer<void> _refreshCompleter = Completer<void>();
+
 class _HomePageState extends State<HomePage> {
   final _tabPages = [
-    Padding(
-      padding: const EdgeInsets.all(5),
-      child: GridView.count(
-          crossAxisCount: 3,
-          crossAxisSpacing: 5,
-          mainAxisSpacing: 5,
-          children: const [
-            FoodWidget(
-                text: "mayonezli pilav",
-                url:
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgv9xaDAT2JjUZmGe-Cl3lf58xJtqro5FoLw&usqp=CAU",
-                text2: "4")
-          ]),
+    BlocBuilder<RecipeBloc, RecipeState>(
+      builder: (context, state) {
+        if (state is LoadedRecipesState) {
+          _refreshCompleter.complete();
+          _refreshCompleter = Completer();
+          return Padding(
+            padding: const EdgeInsets.all(5),
+            child: RefreshIndicator(
+              onRefresh: () {
+                final _recipeBloc = BlocProvider.of<RecipeBloc>(context);
+                _recipeBloc.add(RefreshRecipeEvent());
+                return _refreshCompleter.future;
+              },
+              child: GridView.count(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 5,
+                  children: [
+                    for (var item in state.recipes)
+                      FoodWidget(
+                        recipe: item,
+                      )
+                  ]),
+            ),
+          );
+        }
+        if (state is LoadingRecipesState) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (state is ErrorRecipesState) {
+          _refreshCompleter.complete();
+          _refreshCompleter = Completer();
+          return const Text("Error");
+        }
+        return const SizedBox();
+      },
     ),
     const Text("3"),
   ];
@@ -36,6 +68,8 @@ class _HomePageState extends State<HomePage> {
   ];
   @override
   Widget build(BuildContext context) {
+    final _recipeBloc = BlocProvider.of<RecipeBloc>(context);
+    _recipeBloc.add(GetRecipesEvent());
     return DefaultTabController(
         length: _tabs.length, // length of tabs
         initialIndex: 0,

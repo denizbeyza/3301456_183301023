@@ -1,7 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:recipe_keep/blocs/bloc/recipe_bloc.dart';
 
 import '../models/recipe.dart';
@@ -20,6 +24,7 @@ class _AddRecipePageState extends State<AddRecipePage> {
   final TextEditingController _ingredients = TextEditingController();
   final TextEditingController _directories = TextEditingController();
   final TextEditingController _notes = TextEditingController();
+  File? image;
 
   @override
   Widget build(BuildContext context) {
@@ -35,22 +40,29 @@ class _AddRecipePageState extends State<AddRecipePage> {
                 "New Repice",
               ),
               IconButton(
-                  onPressed: () {
-                    recipeBloc.add(RecipeAddEvent(
-                        recipe: Recipe(
-                      title: _title.text,
-                      cookingTime: _cookingTime.text.isEmpty
-                          ? null
-                          : int.parse(_cookingTime.text),
-                      directions: _directories.text,
-                      ingredients: _ingredients.text,
-                      notes: _notes.text,
-                      photo: "",
-                      preparationTime: _preparationTime.text.isEmpty
-                          ? null
-                          : int.parse(_preparationTime.text),
-                    )));
-                    Navigator.pop(context);
+                  onPressed: () async {
+                    if (_title.text.isNotEmpty) {
+                      recipeBloc.add(
+                        AddRecipeEvent(
+                          image: image?.path ?? "",
+                          recipe: Recipe(
+                            title: _title.text,
+                            cookingTime: _cookingTime.text.isEmpty
+                                ? null
+                                : int.parse(_cookingTime.text),
+                            directions: _directories.text,
+                            ingredients: _ingredients.text,
+                            notes: _notes.text,
+                            preparationTime: _preparationTime.text.isEmpty
+                                ? null
+                                : int.parse(_preparationTime.text),
+                          ),
+                        ),
+                      );
+                      Navigator.pop(context);
+                    } else {
+                      // hata mesajı dönecek
+                    }
                   },
                   icon: Icon(
                     Icons.save,
@@ -169,10 +181,45 @@ class _AddRecipePageState extends State<AddRecipePage> {
                 ),
               ),
             ),
-            Icon(Icons.photo, size: 350),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton.icon(
+                    onPressed: kameradanYukle,
+                    icon: Icon(Icons.add_a_photo_outlined),
+                    label: Text("Take photo")),
+                ElevatedButton.icon(
+                    onPressed: galeridenYukle,
+                    icon: Icon(Icons.add_photo_alternate_outlined),
+                    label: Text("Choose photo from gallery")),
+              ],
+            )
           ],
         ),
       ),
     );
+  }
+
+  kameradanYukle() async {
+    var foto = await ImagePicker().pickImage(
+      source: ImageSource.camera,
+    );
+    if (foto != null) {
+      setState(() {
+        image = File(foto.path);
+      });
+    }
+  }
+
+  galeridenYukle() async {
+    var foto = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+    if (foto != null) {
+      setState(() {
+        image = File(foto.path);
+      });
+    }
   }
 }
