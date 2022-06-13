@@ -2,11 +2,10 @@
 
 import 'dart:io';
 
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:recipe_keep/blocs/bloc/recipe_bloc.dart';
+import 'package:recipe_keep/blocs/recipe/recipe_bloc.dart';
 
 import '../models/recipe.dart';
 
@@ -47,15 +46,11 @@ class _AddRecipePageState extends State<AddRecipePage> {
                           image: image?.path ?? "",
                           recipe: Recipe(
                             title: _title.text,
-                            cookingTime: _cookingTime.text.isEmpty
-                                ? null
-                                : int.parse(_cookingTime.text),
+                            cookingTime: _cookingTime.text,
                             directions: _directories.text,
                             ingredients: _ingredients.text,
                             notes: _notes.text,
-                            preparationTime: _preparationTime.text.isEmpty
-                                ? null
-                                : int.parse(_preparationTime.text),
+                            preparationTime: _preparationTime.text,
                           ),
                         ),
                       );
@@ -181,18 +176,31 @@ class _AddRecipePageState extends State<AddRecipePage> {
                 ),
               ),
             ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+            Column(
               children: [
-                ElevatedButton.icon(
-                    onPressed: kameradanYukle,
-                    icon: Icon(Icons.add_a_photo_outlined),
-                    label: Text("Take photo")),
-                ElevatedButton.icon(
-                    onPressed: galeridenYukle,
-                    icon: Icon(Icons.add_photo_alternate_outlined),
-                    label: Text("Choose photo from gallery")),
+                image != null
+                    ? Image.file(
+                        image!,
+                        height: MediaQuery.of(context).size.height * 0.4,
+                        width: MediaQuery.of(context).size.width * 0.4,
+                      )
+                    : SizedBox(
+                        height: 50,
+                      ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ElevatedButton.icon(
+                        onPressed: kameradanYukle,
+                        icon: Icon(Icons.add_a_photo_outlined),
+                        label: Text("Take photo")),
+                    ElevatedButton.icon(
+                        onPressed: galeridenYukle,
+                        icon: Icon(Icons.add_photo_alternate_outlined),
+                        label: Text("Choose photo from gallery")),
+                  ],
+                ),
               ],
             )
           ],

@@ -1,13 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:recipe_keep/main.dart';
-import 'package:recipe_keep/widgets/google_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:the_validator/the_validator.dart';
 
-import 'login_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -18,7 +15,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   var formKey = GlobalKey<FormState>();
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   late String _email;
@@ -251,10 +248,12 @@ class _RegisterPageState extends State<RegisterPage> {
               .createUserWithEmailAndPassword(
                   email: _email, password: _password)
               .catchError((onError) {});
+          // ignore: unnecessary_null_comparison
           if (firebaseUser != null) {
             _firestore.collection("users").doc(firebaseUser.user!.uid).set({
               "id": firebaseUser.user!.uid,
               "email": firebaseUser.user!.email,
+              "shopping_lists":[],
               "recipes": []
             });
             _auth.signOut();

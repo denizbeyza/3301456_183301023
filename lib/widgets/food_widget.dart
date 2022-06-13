@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_cacheing/image_cacheing.dart';
+import 'package:recipe_keep/pages/recipe_detail.dart';
 
 import '../models/recipe.dart';
 
@@ -11,13 +12,13 @@ class FoodWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
-      // Image.network(
-      //             recipe.photo!,
-      //             height: 300,
-      //             width: 300,
-      //             fit: BoxFit.cover,
-      //           )
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => RecipeDetailPage(recipe: recipe),
+            ));
+      },
       child: Container(
         color: Theme.of(context).primaryColor,
         height: 100,
@@ -28,6 +29,9 @@ class FoodWidget extends StatelessWidget {
               flex: 10,
               child: recipe.photo != null
                   ? ImageCacheing(
+                      loadingWidget: const Center(
+                        child: CircularProgressIndicator(),
+                      ),
                       height: 300,
                       width: 300,
                       fit: BoxFit.cover,

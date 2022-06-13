@@ -2,10 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recipe_keep/blocs/bloc/recipe_bloc.dart';
+import 'package:recipe_keep/blocs/recipe/recipe_bloc.dart';
+import 'package:recipe_keep/blocs/shopping_list/shopping_list_bloc.dart';
 import 'package:recipe_keep/pages/add_recipe_page.dart';
+import 'package:recipe_keep/pages/add_shopping_list_item.dart';
 import 'package:recipe_keep/pages/bottom/home_page.dart';
-import 'package:recipe_keep/pages/bottom/search_page.dart';
 import 'package:recipe_keep/pages/bottom/settings_page.dart';
 import 'package:recipe_keep/pages/bottom/shopping_list_page.dart';
 import 'package:recipe_keep/pages/auth/login_page.dart';
@@ -15,8 +16,15 @@ import 'package:flutter/services.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(BlocProvider(
-    create: (context) => RecipeBloc(),
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider(
+        create: (context) => RecipeBloc(),
+      ),
+      BlocProvider(
+        create: (context) => ShoppingListBloc(),
+      ),
+    ],
     child: const MyApp(),
   ));
 }
@@ -42,16 +50,17 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     loginControl();
+    super.initState();
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarBrightness: Brightness.dark,
-      statusBarColor: Colors.transparent,
+      // statusBarBrightness: Brightness.dark,
+      // statusBarIconBrightness: Brightness.dark,
+      // statusBarColor: Colors.transparent,
       systemNavigationBarIconBrightness: Brightness.dark,
       systemNavigationBarColor: Colors.white,
     ));
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
-    super.initState();
   }
 
   @override
@@ -60,7 +69,7 @@ class _MyAppState extends State<MyApp> {
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.orange,
+          primarySwatch: Colors.blue,
         ),
         home: status ? const MainWidget() : const LoginPage());
   }
@@ -77,7 +86,6 @@ class _MainWidgetState extends State<MainWidget> {
   int index = 0;
   final pages = const [
     HomePage(),
-    SearchRecipePage(),
     ShoppingListPage(),
     SettingsPage(),
   ];
@@ -95,16 +103,26 @@ class _MainWidgetState extends State<MainWidget> {
                     ));
               },
             )
-          : const SizedBox(),
+          : index == 1
+              ? FloatingActionButton(
+                  child: const Icon(Icons.add, color: Colors.white),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AddShoppingListPage(),
+                        ));
+                  },
+                )
+              : const SizedBox(),
       bottomNavigationBar: BottomAppBar(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             tabItem(idx: 0, icon: const Icon(Icons.home_outlined)),
-            tabItem(idx: 1, icon: const Icon(Icons.search)),
             tabItem(
-                idx: 2, icon: const Icon(Icons.format_list_bulleted_rounded)),
-            tabItem(idx: 3, icon: const Icon(Icons.settings)),
+                idx: 1, icon: const Icon(Icons.format_list_bulleted_rounded)),
+            tabItem(idx: 2, icon: const Icon(Icons.settings)),
           ],
         ),
       ),
@@ -113,8 +131,7 @@ class _MainWidgetState extends State<MainWidget> {
           child: Column(
             children: [
               const CustomAppbar(),
-              const SizedBox(height: 15),
-              pages[index]
+              pages[index],
             ],
           ),
         ),

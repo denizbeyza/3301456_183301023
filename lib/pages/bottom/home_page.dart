@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_keep/widgets/food_widget.dart';
+import 'package:recipe_keep/widgets/info_widget.dart';
 
-import '../../blocs/bloc/recipe_bloc.dart';
+import '../../blocs/recipe/recipe_bloc.dart';
+import '../../widgets/error_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -19,15 +21,27 @@ class _HomePageState extends State<HomePage> {
   final _tabPages = [
     BlocBuilder<RecipeBloc, RecipeState>(
       builder: (context, state) {
+        final recipeBloc = BlocProvider.of<RecipeBloc>(context);
+
         if (state is LoadedRecipesState) {
+          if (state.recipes.isEmpty) {
+            return InkWell(
+              onTap: () {
+                recipeBloc.add(GetRecipesEvent());
+              },
+              child: const InfoMessageWidget(
+                  message: "Henüz tarif eklememişsiniz"),
+            );
+          }
+
           _refreshCompleter.complete();
           _refreshCompleter = Completer();
           return Padding(
             padding: const EdgeInsets.all(5),
             child: RefreshIndicator(
               onRefresh: () {
-                final _recipeBloc = BlocProvider.of<RecipeBloc>(context);
-                _recipeBloc.add(RefreshRecipeEvent());
+                final recipeBloc = BlocProvider.of<RecipeBloc>(context);
+                recipeBloc.add(RefreshRecipesEvent());
                 return _refreshCompleter.future;
               },
               child: GridView.count(
@@ -51,12 +65,70 @@ class _HomePageState extends State<HomePage> {
         if (state is ErrorRecipesState) {
           _refreshCompleter.complete();
           _refreshCompleter = Completer();
-          return const Text("Error");
+          return const ErrorMessageWidget(
+            message: 'Hata Oluştu',
+          );
         }
         return const SizedBox();
       },
     ),
-    const Text("3"),
+    SizedBox(
+      child: BlocBuilder<RecipeBloc, RecipeState>(
+        builder: (context, state) {
+          final recipeBloc = BlocProvider.of<RecipeBloc>(context);
+
+          if (state is LoadedRecipesState) {
+            if (state.recipes.isEmpty) {
+              return InkWell(
+                onTap: () {
+                  recipeBloc.add(GetRecipesEvent());
+                },
+                child: const InfoMessageWidget(
+                    message: "Henüz tarif eklememişsiniz"),
+              );
+            }
+
+            _refreshCompleter.complete();
+            _refreshCompleter = Completer();
+            return Padding(
+              padding: const EdgeInsets.all(5),
+              child: RefreshIndicator(
+                onRefresh: () {
+                  final recipeBloc = BlocProvider.of<RecipeBloc>(context);
+                  recipeBloc.add(RefreshRecipesEvent());
+                  return _refreshCompleter.future;
+                },
+                child: GridView.count(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 5,
+                    mainAxisSpacing: 5,
+                    children: [
+                      for (var item in state.recipes)
+                        item.isFavorite!
+                            ? FoodWidget(
+                                recipe: item,
+                              )
+                            : const SizedBox()
+                    ]),
+              ),
+            );
+          }
+          if (state is LoadingRecipesState) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (state is ErrorRecipesState) {
+            _refreshCompleter.complete();
+            _refreshCompleter = Completer();
+            return const ErrorMessageWidget(
+              message: 'Hata Oluştu',
+            );
+          }
+          return const SizedBox();
+        },
+      ),
+    ),
   ];
   final _tabs = const [
     Tab(
@@ -68,8 +140,8 @@ class _HomePageState extends State<HomePage> {
   ];
   @override
   Widget build(BuildContext context) {
-    final _recipeBloc = BlocProvider.of<RecipeBloc>(context);
-    _recipeBloc.add(GetRecipesEvent());
+    final recipeBloc = BlocProvider.of<RecipeBloc>(context);
+    recipeBloc.add(GetRecipesEvent());
     return DefaultTabController(
         length: _tabs.length, // length of tabs
         initialIndex: 0,

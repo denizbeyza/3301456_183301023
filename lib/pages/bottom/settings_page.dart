@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:recipe_keep/models/recipe.dart';
 import 'package:recipe_keep/services/recipes/recipe_service.dart';
 
 import '../auth/login_page.dart';
@@ -15,7 +14,7 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   final RecipesService _service = RecipesService();
   @override

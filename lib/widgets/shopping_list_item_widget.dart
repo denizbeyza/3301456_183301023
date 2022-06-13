@@ -1,16 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ShoppingListItem extends StatefulWidget {
-  final String title;
-  const ShoppingListItem({Key? key, required this.title}) : super(key: key);
+import '../models/shopping_list_item.dart';
+
+class ShoppingListItemWidget extends StatefulWidget {
+  final ShoppingListItem shoppingListItem;
+  const ShoppingListItemWidget({
+    Key? key,
+    required this.shoppingListItem,
+  }) : super(key: key);
 
   @override
-  State<ShoppingListItem> createState() => _ShoppingListItemState();
+  State<ShoppingListItemWidget> createState() => _ShoppingListItemWidgetState();
 }
 
-class _ShoppingListItemState extends State<ShoppingListItem> {
-  bool _chechBoxValue = false;
+class _ShoppingListItemWidgetState extends State<ShoppingListItemWidget> {
+  late bool _chechBoxValue;
+  @override
+  void initState() {
+    super.initState();
+    _chechBoxValue = widget.shoppingListItem.checked!;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -23,7 +34,7 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
               });
             }),
         Text(
-          widget.title,
+          widget.shoppingListItem.text!,
           style: GoogleFonts.jost(
               fontSize: 15,
               decoration: _chechBoxValue
