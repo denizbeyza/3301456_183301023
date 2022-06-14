@@ -104,7 +104,8 @@ class RecipesService {
     }
   }
 
-  updateRecipe(Recipe recipe, cookingTime, directions, ingredients, notes,photo, preparationTime, title, isFavorite) async {
+  updateRecipe(Recipe recipe, cookingTime, directions, ingredients, notes,
+      photo, preparationTime, title, isFavorite) async {
     String photoName = DateTime.now().toString();
     if (photo != null) {
       var reference =
@@ -138,4 +139,8 @@ class RecipesService {
         .update({"photo": null, "photoName": null});
   }
 
+  getRecipesLength() async {
+    List list = await getRecipes();
+    return list.length;
+  }
 }

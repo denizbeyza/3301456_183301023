@@ -60,10 +60,9 @@ class ShoppingListService {
       for (var i in shoppingListsId) {
         var shoppingList = await _firestore.doc("shopping_lists/$i").get();
         shoppingLists.add(ShoppingListItem(
-            text: shoppingList.data()!["text"],
+          text: shoppingList.data()!["text"],
           id: shoppingList.data()!["id"],
-
-           ));
+        ));
       }
       return shoppingLists;
     } catch (_) {
@@ -76,11 +75,14 @@ class ShoppingListService {
       _firestore.doc("shopping_lists/${item.id}").delete();
       var userDoc = _firestore.doc("users/${_auth.currentUser!.uid}");
       var userData = await userDoc.get();
-       List shoppingLists = userData.data()!["shopping_lists"];
+      List shoppingLists = userData.data()!["shopping_lists"];
       shoppingLists.remove(item.id);
       userDoc.update({"shopping_lists": shoppingLists});
     } catch (_) {}
   }
 
- 
+  getShoppinglistsLength() async {
+    List list = await getShoppinglists();
+    return list.length;
+  }
 }

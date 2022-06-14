@@ -8,6 +8,7 @@ import 'package:recipe_keep/pages/auth/login_page.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 import '../../static/theme.dart';
+import '../graph_page.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -73,6 +74,22 @@ class _SettingsPageState extends State<SettingsPage> {
                         ],
                       );
                     });
+              },
+            )
+          ],
+        ),
+        SettingsSection(
+          title: const Text('Grafik'),
+          tiles: <SettingsTile>[
+            SettingsTile.navigation(
+              leading: const Icon(Icons.graphic_eq_outlined),
+              title: const Text('Grafik'),
+              onPressed: (context) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const GraphPage(),
+                    ));
               },
             )
           ],
