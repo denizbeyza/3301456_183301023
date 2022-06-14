@@ -276,12 +276,20 @@ class _LoginPageState extends State<LoginPage> {
       );
       await _auth.signInWithCredential(credential);
       var user = _auth.currentUser!;
-      await FirebaseFirestore.instance.collection("users").doc(user.uid).set({
-        "id": user.uid,
-        "email": user.email,
-        "shopping_lists": [],
-        "recipes": []
-      });
+      var userDataSnapshot = await FirebaseFirestore.instance
+          .collection("users")
+          .doc(user.uid)
+          .get();
+      var userData = userDataSnapshot.data();
+      if (userData!.isEmpty) {
+        await FirebaseFirestore.instance.collection("users").doc(user.uid).set({
+          "id": user.uid,
+          "email": user.email,
+          "shopping_lists": [],
+          "recipes": []
+        });
+      }
+
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => const MainWidget()),

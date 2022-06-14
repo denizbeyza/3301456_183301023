@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:recipe_keep/blocs/recipe/recipe_bloc.dart';
 import 'package:recipe_keep/blocs/shopping_list/shopping_list_bloc.dart';
+import 'package:recipe_keep/blocs/theme/theme_bloc.dart';
 import 'package:recipe_keep/pages/add_recipe_page.dart';
 import 'package:recipe_keep/pages/add_shopping_list_item.dart';
 import 'package:recipe_keep/pages/bottom/home_page.dart';
@@ -23,6 +24,9 @@ void main() async {
       ),
       BlocProvider(
         create: (context) => ShoppingListBloc(),
+      ),
+      BlocProvider(
+        create: (context) => ThemeBloc(),
       ),
     ],
     child: const MyApp(),
@@ -65,13 +69,17 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Flutter Demo',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: status ? const MainWidget() : const LoginPage());
+    return BlocBuilder<ThemeBloc, ThemeState>(
+      builder: (context, state) {
+        return MaterialApp(
+            title: 'Flutter Demo',
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              primarySwatch: (state as ThemeInitial).color,
+            ),
+            home: status ? const MainWidget() : const LoginPage());
+      },
+    );
   }
 }
 

@@ -261,7 +261,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                                   // widget.recipe.photo = null;
                                   // widget.recipe.photoName = null;
                                   // file = null;
-                                  // image = null;
+                                  image = null;
                                 });
                               },
                               icon: const Icon(Icons.add_a_photo_outlined),
