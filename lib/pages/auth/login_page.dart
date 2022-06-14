@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:recipe_keep/main.dart';
 import 'package:recipe_keep/pages/auth/resigters_page.dart';
 import 'package:recipe_keep/widgets/google_button.dart';
@@ -200,7 +202,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ],
                         ),
-                        GoogleButton(onPressed: () {})
+                        GoogleButton(onPressed: loginWithGoogle)
                       ],
                     ),
                   ),
@@ -261,85 +263,29 @@ class _LoginPageState extends State<LoginPage> {
       }
     }
   }
+
+  loginWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser!.authentication;
+
+      final OAuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      await _auth.signInWithCredential(credential);
+      var user = _auth.currentUser!;
+      await FirebaseFirestore.instance.collection("users").doc(user.uid).set({
+        "id": user.uid,
+        "email": user.email,
+        "shopping_lists": [],
+        "recipes": []
+      });
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const MainWidget()),
+          (r) => false);
+    } catch (_) {}
+  }
 }
-
-
-  // if (_email.text.isEmpty || _password.text.isEmpty) {
-  //                             ScaffoldMessenger.of(context)
-  //                                 .showSnackBar(const SnackBar(
-  //                               content:
-  //                                   Text("Giriş bilgilerinizi kontrol ediniz"),
-  //                             ));
-  //                           } else if (!EmailValidator.validate(_email.text)) {
-  //                             Alert(
-  //                                 type: AlertType.warning,
-  //                                 context: context,
-  //                                 title: "Giriş Yapılamadı",
-  //                                 desc: "Geçerli Bir E-posta giriniz",
-  //                                 buttons: [
-  //                                   DialogButton(
-  //                                     child: const Text(
-  //                                       "Kapat",
-  //                                       style: TextStyle(
-  //                                           color: Colors.white, fontSize: 24),
-  //                                     ),
-  //                                     onPressed: () => Navigator.of(context,
-  //                                             rootNavigator: true)
-  //                                         .pop(),
-  //                                   )
-  //                                 ]).show();
-  //                           } else if (_password.text.length < 6) {
-  //                             Alert(
-  //                                 type: AlertType.warning,
-  //                                 context: context,
-  //                                 title: "Giriş Yapılamadı",
-  //                                 desc:
-  //                                     "Şifrenizin en az 6 karakter olması lazım",
-  //                                 buttons: [
-  //                                   DialogButton(
-  //                                     child: const Text(
-  //                                       "Kapat",
-  //                                       style: TextStyle(
-  //                                           color: Colors.white, fontSize: 24),
-  //                                     ),
-  //                                     onPressed: () => Navigator.of(context,
-  //                                             rootNavigator: true)
-  //                                         .pop(),
-  //                                   )
-  //                                 ]).show();
-  //                           } else {
-  //                             try {
-  //                               await _auth
-  //                                   .signInWithEmailAndPassword(
-  //                                       email: _email.text,
-  //                                       password: _password.text)
-  //                                   .then((value) {
-  //                                 Navigator.pushAndRemoveUntil(
-  //                                     context,
-  //                                     MaterialPageRoute(
-  //                                       builder: (context) =>
-  //                                           const MainWidget(),
-  //                                     ),
-  //                                     (route) => false);
-  //                               });
-  //                             } on FirebaseAuthException {
-  //                               Alert(
-  //                                   type: AlertType.warning,
-  //                                   context: context,
-  //                                   title: "Giriş Yapılamadı",
-  //                                   desc: "E-postanız veya şifreniz hatalı",
-  //                                   buttons: [
-  //                                     DialogButton(
-  //                                       child: const Text(
-  //                                         "Kapat",
-  //                                         style: TextStyle(
-  //                                             color: Colors.white,
-  //                                             fontSize: 24),
-  //                                       ),
-  //                                       onPressed: () => Navigator.of(context,
-  //                                               rootNavigator: true)
-  //                                           .pop(),
-  //                                     )
-  //                                   ]).show();
-  //                             }
-  //                           }

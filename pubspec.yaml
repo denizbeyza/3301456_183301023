@@ -38,6 +38,7 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^8.0.1
   google_fonts: ^3.0.1
+  google_sign_in: ^5.3.3
   image_cacheing: ^0.0.2
   image_picker: ^0.8.5+3
   path: ^1.8.1

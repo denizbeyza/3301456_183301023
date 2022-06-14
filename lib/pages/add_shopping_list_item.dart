@@ -27,8 +27,7 @@ class _AddShoppingListPageState extends State<AddShoppingListPage> {
                 onPressed: () {
                   shoppingListBloc.add(AddShoppingListEvent(
                       item:
-                          ShoppingListItem(text: _title.text, checked: false)));
-                  shoppingListBloc.add(GetShoppingListsEvent());
+                          ShoppingListItem(text: _title.text)));
 
                   Navigator.pop(context);
                 },

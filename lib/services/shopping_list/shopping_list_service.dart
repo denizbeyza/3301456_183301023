@@ -7,12 +7,16 @@ class ShoppingListService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<bool> addShoppingListItem(ShoppingListItem item) async {
+  addShoppingListItem(ShoppingListItem item) async {
     try {
       _firestore
           .collection("shopping_lists")
           .add(item.toJson())
           .then((value) async {
+        var data = await value.get();
+        var dataData = data.data();
+        dataData!.addAll({"id": value.id});
+        value.set(dataData);
         var user = await _firestore
             .collection("users")
             .doc(_auth.currentUser!.uid)
@@ -57,11 +61,26 @@ class ShoppingListService {
         var shoppingList = await _firestore.doc("shopping_lists/$i").get();
         shoppingLists.add(ShoppingListItem(
             text: shoppingList.data()!["text"],
-            checked: shoppingList.data()!["checked"]));
+          id: shoppingList.data()!["id"],
+
+           ));
       }
       return shoppingLists;
     } catch (_) {
       return shoppingLists;
     }
   }
+
+  removeShoppingListItem(ShoppingListItem item) async {
+    try {
+      _firestore.doc("shopping_lists/${item.id}").delete();
+      var userDoc = _firestore.doc("users/${_auth.currentUser!.uid}");
+      var userData = await userDoc.get();
+       List shoppingLists = userData.data()!["shopping_lists"];
+      shoppingLists.remove(item.id);
+      userDoc.update({"shopping_lists": shoppingLists});
+    } catch (_) {}
+  }
+
+ 
 }

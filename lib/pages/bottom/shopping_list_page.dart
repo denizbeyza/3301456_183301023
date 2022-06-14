@@ -21,57 +21,74 @@ class _ShoppingState extends State<ShoppingListPage> {
   Widget build(BuildContext context) {
     final shoppingListBloc = BlocProvider.of<ShoppingListBloc>(context);
     shoppingListBloc.add(GetShoppingListsEvent());
-    return SizedBox(
-      height: MediaQuery.of(context).size.height,
-      child: Column(
-        children: [
-          BlocBuilder<ShoppingListBloc, ShoppingListState>(
-            builder: (context, state) {
-              if (state is LoadedShoppingListState) {
-                _refreshCompleter.complete();
-                _refreshCompleter = Completer();
-                if (state.shoppingLists.isEmpty) {
-                  return InkWell(
-                    onTap: () {
-                      shoppingListBloc.add(GetShoppingListsEvent());
-                    },
-                    child: const InfoMessageWidget(
-                        message: "Henüz ürün eklememişsiniz"),
-                  );
-                }
-                return Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: RefreshIndicator(
-                    onRefresh: () async {
-                      shoppingListBloc.add(RefreshShoppingListsEvent());
+    return BlocBuilder<ShoppingListBloc, ShoppingListState>(
+      bloc: shoppingListBloc,
+      buildWhen: (previous, current) {
+        return true;
+      },
+      builder: (context, state) {
+        if (state is LoadedShoppingListState) {
+          _refreshCompleter.complete();
+          _refreshCompleter = Completer();
+          if (state.shoppingLists.isEmpty) {
+            return InkWell(
+              onTap: () {
+                shoppingListBloc.add(GetShoppingListsEvent());
+              },
+              child:
+                  const InfoMessageWidget(message: "Henüz ürün eklememişsiniz"),
+            );
+          }
+          return SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Padding(
+                padding: const EdgeInsets.all(5),
+                child: RefreshIndicator(
+                  onRefresh: () async {
+                    shoppingListBloc.add(RefreshShoppingListsEvent());
 
-                      return _refreshCompleter.future;
-                    },
-                    child: Column(
-                      children: [
-                        for (var item in state.shoppingLists)
-                          ShoppingListItemWidget(shoppingListItem: item)
-                      ],
+                    return _refreshCompleter.future;
+                  },
+                  child: ListView.separated(
+                    separatorBuilder: (context, index) => const Divider(
+                      color: Colors.black,
                     ),
-                  ),
-                );
-              }
+                    shrinkWrap: true,
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    itemCount: state.shoppingLists.length,
+                    itemBuilder: (context, index) {
+                      return Dismissible(
+                        background: Container(color: Colors.red),
+                        onDismissed: (direction) {
+                          shoppingListBloc.add(RemoveShoppingListEvent(
+                              item: state.shoppingLists[index]));
 
-              if (state is LoadingShoppingList) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (state is ErrorShoppingListsState) {
-                _refreshCompleter.complete();
-                _refreshCompleter = Completer();
-                return const Text("Error");
-              }
-              return const SizedBox();
-            },
-          ),
-        ],
-      ),
+                          // setState(() {
+                          //   state.shoppingLists.removeAt(index);
+                          // });
+                        },
+                        key: Key(DateTime.now().toString()),
+                        child: ShoppingListItemWidget(
+                            shoppingListItem: state.shoppingLists[index]),
+                      );
+                    },
+                  ),
+                )),
+          );
+        }
+
+        if (state is LoadingShoppingList) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (state is ErrorShoppingListsState) {
+          _refreshCompleter.complete();
+          _refreshCompleter = Completer();
+          return const Text("Error");
+        }
+        return const SizedBox();
+      },
     );
   }
 }

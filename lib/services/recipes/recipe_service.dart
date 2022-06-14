@@ -9,7 +9,7 @@ class RecipesService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  addRecipe(Recipe recipe, File? image) async {
+  Future addRecipe(Recipe recipe, File? image) async {
     try {
       String photoName = DateTime.now().toString();
       if (image != null) {
@@ -104,8 +104,7 @@ class RecipesService {
     }
   }
 
-  updateRecipe(Recipe recipe, cookingTime, directions, ingredients, notes,
-      photo, preparationTime, title, isFavorite) async {
+  updateRecipe(Recipe recipe, cookingTime, directions, ingredients, notes,photo, preparationTime, title, isFavorite) async {
     String photoName = DateTime.now().toString();
     if (photo != null) {
       var reference =
@@ -129,13 +128,14 @@ class RecipesService {
   }
 
   removeImageFromRecipe(Recipe recipe) async {
-    _firestore
-        .doc("recipes/${recipe.id}")
-        .update({"photo": null, "photoName": null});
     FirebaseStorage.instance
         .ref()
         .child("images")
         .child(recipe.photoName!)
         .delete();
+    _firestore
+        .doc("recipes/${recipe.id}")
+        .update({"photo": null, "photoName": null});
   }
+
 }

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_cacheing/image_cacheing.dart';
@@ -55,6 +56,9 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
               )),
               IconButton(
                   onPressed: () async {
+                    FirebaseFirestore.instance
+                        .doc("recipes/${widget.recipe.id}")
+                        .update({"is_favorite": !widget.recipe.isFavorite!});
                     setState(() {
                       widget.recipe.isFavorite = !widget.recipe.isFavorite!;
                     });
@@ -254,10 +258,10 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                                 recipeBloc.add(
                                     RemoveImageFromRecipeEvent(widget.recipe));
                                 setState(() {
-                                  widget.recipe.photo = null;
-                                  widget.recipe.photoName = null;
-                                  file = null;
-                                  image = null;
+                                  // widget.recipe.photo = null;
+                                  // widget.recipe.photoName = null;
+                                  // file = null;
+                                  // image = null;
                                 });
                               },
                               icon: const Icon(Icons.add_a_photo_outlined),

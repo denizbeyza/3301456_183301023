@@ -1,10 +1,8 @@
 part of 'recipe_bloc.dart';
 
-abstract class RecipeEvent extends Equatable {
+abstract class RecipeEvent{
   const RecipeEvent();
 
-  @override
-  List<Object> get props => [];
 }
 
 class AddRecipeEvent extends RecipeEvent {
@@ -12,8 +10,6 @@ class AddRecipeEvent extends RecipeEvent {
   final Recipe recipe;
   const AddRecipeEvent({required this.recipe, this.image = ""});
 
-  @override
-  List<Object> get props => [recipe, image];
 }
 
 class GetRecipesEvent extends RecipeEvent {}
@@ -24,8 +20,6 @@ class RemoveRecipeEvent extends RecipeEvent {
   final Recipe recipe;
   const RemoveRecipeEvent({required this.recipe});
 
-  @override
-  List<Object> get props => [recipe];
 }
 
 class UpdateRecipeEvent extends RecipeEvent {
@@ -42,25 +36,11 @@ class UpdateRecipeEvent extends RecipeEvent {
       this.notes, this.photo, this.preparationTime, this.title, this.isFavorite,
       {required this.recipe});
 
-  @override
-  List<Object> get props => [
-        recipe,
-        cookingTime,
-        directions,
-        ingredients,
-        notes,
-        preparationTime,
-        title,
-        isFavorite
-      ];
+
 }
 
 class RemoveImageFromRecipeEvent extends RecipeEvent {
     final Recipe recipe;
-
- 
-
   const RemoveImageFromRecipeEvent(this.recipe);
-  @override
-  List<Object> get props => [recipe];
+
 }

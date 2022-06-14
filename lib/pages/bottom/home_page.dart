@@ -103,12 +103,9 @@ class _HomePageState extends State<HomePage> {
                     crossAxisSpacing: 5,
                     mainAxisSpacing: 5,
                     children: [
-                      for (var item in state.recipes)
-                        item.isFavorite!
-                            ? FoodWidget(
-                                recipe: item,
-                              )
-                            : const SizedBox()
+                      for (var item in state.recipes
+                          .where((element) => element.isFavorite == true))
+                        FoodWidget(recipe: item)
                     ]),
               ),
             );
@@ -145,18 +142,20 @@ class _HomePageState extends State<HomePage> {
     return DefaultTabController(
         length: _tabs.length, // length of tabs
         initialIndex: 0,
-        child: Column(children: <Widget>[
-          TabBar(
-            labelColor: Theme.of(context).primaryColor,
-            unselectedLabelColor: Colors.black,
-            tabs: _tabs,
-          ),
-          Container(
-              height: MediaQuery.of(context).size.height * 0.7,
-              decoration: const BoxDecoration(
-                  border:
-                      Border(top: BorderSide(color: Colors.grey, width: 0.5))),
-              child: TabBarView(children: _tabPages))
-        ]));
+        child: SingleChildScrollView(
+          child: Column(children: <Widget>[
+            TabBar(
+              labelColor: Theme.of(context).primaryColor,
+              unselectedLabelColor: Colors.black,
+              tabs: _tabs,
+            ),
+            Container(
+                height: MediaQuery.of(context).size.height * 0.7,
+                decoration: const BoxDecoration(
+                    border: Border(
+                        top: BorderSide(color: Colors.grey, width: 0.5))),
+                child: TabBarView(children: _tabPages))
+          ]),
+        ));
   }
 }

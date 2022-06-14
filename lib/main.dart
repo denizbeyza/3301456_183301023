@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:recipe_keep/blocs/recipe/recipe_bloc.dart';
 import 'package:recipe_keep/blocs/shopping_list/shopping_list_bloc.dart';
 import 'package:recipe_keep/pages/add_recipe_page.dart';
@@ -10,7 +11,6 @@ import 'package:recipe_keep/pages/bottom/home_page.dart';
 import 'package:recipe_keep/pages/bottom/settings_page.dart';
 import 'package:recipe_keep/pages/bottom/shopping_list_page.dart';
 import 'package:recipe_keep/pages/auth/login_page.dart';
-import 'package:recipe_keep/widgets/appbar.dart';
 import 'package:flutter/services.dart';
 
 void main() async {
@@ -92,6 +92,24 @@ class _MainWidgetState extends State<MainWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.dinner_dining_rounded,
+              size: 35,
+              color: Theme.of(context).primaryColor,
+            ),
+            Text(
+              "Recipe Keeper",
+              style: GoogleFonts.oswald(
+                  color: Theme.of(context).primaryColor, fontSize: 30),
+            ),
+          ],
+        ),
+      ),
       floatingActionButton: index == 0
           ? FloatingActionButton(
               child: const Icon(Icons.add, color: Colors.white),
@@ -127,14 +145,7 @@ class _MainWidgetState extends State<MainWidget> {
         ),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const CustomAppbar(),
-              pages[index],
-            ],
-          ),
-        ),
+        child: pages[index],
       ),
     );
   }

@@ -1,6 +1,6 @@
 part of 'shopping_list_bloc.dart';
 
-abstract class ShoppingListState extends Equatable {
+abstract class ShoppingListState  {
   const ShoppingListState();
 
   @override

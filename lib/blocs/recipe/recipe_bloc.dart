@@ -3,7 +3,6 @@ import 'dart:io';
 
 // ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 
 import '../../models/recipe.dart';
 import '../../services/recipes/recipe_service.dart';
@@ -22,52 +21,44 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     on<RemoveImageFromRecipeEvent>(_removeImageFromRecipeEvent);
   }
 
-  Future<FutureOr<void>> _recipeAddEvent(
-      AddRecipeEvent event, Emitter<RecipeState> emit) async {
-    await _service.addRecipe(
-        event.recipe, event.image.isEmpty ? null : File(event.image));
+  Future<FutureOr<void>> _recipeAddEvent(AddRecipeEvent event, Emitter<RecipeState> emit) async {
     try {
-      List<Recipe> recipes = await _service.getRecipes();
-      emit(LoadedRecipesState(recipes: recipes));
+      await _service.addRecipe(
+          event.recipe, event.image.isEmpty ? null : File(event.image));
+      
+      emit(LoadedRecipesState(recipes: await _service.getRecipes()));
     } catch (_) {
       emit(ErrorRecipesState());
     }
   }
 
-  Future<FutureOr<void>> _getRecipesEvent(
-      GetRecipesEvent event, Emitter<RecipeState> emit) async {
+  Future<FutureOr<void>> _getRecipesEvent(GetRecipesEvent event, Emitter<RecipeState> emit) async {
     emit(LoadingRecipesState());
     try {
-      List<Recipe> recipes = await _service.getRecipes();
-      emit(LoadedRecipesState(recipes: recipes));
+      emit(LoadedRecipesState(recipes: await _service.getRecipes()));
     } catch (_) {
       emit(ErrorRecipesState());
     }
   }
 
-  Future<FutureOr<void>> _refreshRecipeEvent(
-      RefreshRecipesEvent event, Emitter<RecipeState> emit) async {
+  Future<FutureOr<void>> _refreshRecipeEvent(RefreshRecipesEvent event, Emitter<RecipeState> emit) async {
     try {
-      List<Recipe> recipes = await _service.getRecipes();
-      emit(LoadedRecipesState(recipes: recipes));
+      emit(LoadedRecipesState(recipes: await _service.getRecipes()));
     } catch (_) {
       emit(ErrorRecipesState());
     }
   }
 
-  Future<FutureOr<void>> _removeRecipeEvent(
-      RemoveRecipeEvent event, Emitter<RecipeState> emit) async {
-    await _service.removeRecipe(event.recipe);
+  Future<FutureOr<void>> _removeRecipeEvent(RemoveRecipeEvent event, Emitter<RecipeState> emit) async {
     try {
-      List<Recipe> recipes = await _service.getRecipes();
-      emit(LoadedRecipesState(recipes: recipes));
+      await _service.removeRecipe(event.recipe);
+      emit(LoadedRecipesState(recipes: await _service.getRecipes()));
     } catch (_) {
       emit(ErrorRecipesState());
     }
   }
 
-  Future<FutureOr<void>> _updateRecipeEvent(
-      UpdateRecipeEvent event, Emitter<RecipeState> emit) async {
+  Future<FutureOr<void>> _updateRecipeEvent(UpdateRecipeEvent event, Emitter<RecipeState> emit) async {
     await _service.updateRecipe(
         event.recipe,
         event.cookingTime,
@@ -80,21 +71,20 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
         event.isFavorite);
 
     try {
-      List<Recipe> recipes = await _service.getRecipes();
-      emit(LoadedRecipesState(recipes: recipes));
+      emit(LoadedRecipesState(recipes: await _service.getRecipes()));
     } catch (_) {
       emit(ErrorRecipesState());
     }
   }
 
-  Future<FutureOr<void>> _removeImageFromRecipeEvent(
-      RemoveImageFromRecipeEvent event, Emitter<RecipeState> emit) async {
+  Future<FutureOr<void>> _removeImageFromRecipeEvent(RemoveImageFromRecipeEvent event, Emitter<RecipeState> emit) async {
+    try {
     _service.removeImageFromRecipe(event.recipe);
-      try {
-      List<Recipe> recipes = await _service.getRecipes();
-      emit(LoadedRecipesState(recipes: recipes));
+      emit(LoadedRecipesState(recipes: await _service.getRecipes()));
     } catch (_) {
       emit(ErrorRecipesState());
     }
   }
+
+  
 }
