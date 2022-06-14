@@ -14,12 +14,13 @@ import 'package:recipe_keep/pages/bottom/settings_page.dart';
 import 'package:recipe_keep/pages/bottom/shopping_list_page.dart';
 import 'package:recipe_keep/pages/auth/login_page.dart';
 import 'package:flutter/services.dart';
+import 'package:recipe_keep/services/theme/utils.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Firebase.initializeApp();
-  
+
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(
@@ -35,7 +36,6 @@ void main() async {
     child: const MyApp(),
   ));
   FlutterNativeSplash.remove();
-
 }
 
 class MyApp extends StatefulWidget {
@@ -47,7 +47,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late bool status;
-
+  ThemeUtils _themeUtils = ThemeUtils();
   loginControl() {
     if (FirebaseAuth.instance.currentUser == null) {
       status = false;
@@ -74,13 +74,16 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    final themeBloc = BlocProvider.of<ThemeBloc>(context);
+    themeBloc.add(GetThemeEvent());
     return BlocBuilder<ThemeBloc, ThemeState>(
       builder: (context, state) {
         return MaterialApp(
             title: 'Flutter Demo',
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
-              primarySwatch: (state as ThemeInitial).color,
+              primarySwatch:
+                  state is ColorChangeState ? state.color : Colors.blue,
             ),
             home: status ? const MainWidget() : const LoginPage());
       },
@@ -116,7 +119,7 @@ class _MainWidgetState extends State<MainWidget> {
               color: Theme.of(context).primaryColor,
             ),
             Text(
-              "Recipe Keeper",
+              "Tarif Günlüğü",
               style: GoogleFonts.oswald(
                   color: Theme.of(context).primaryColor, fontSize: 30),
             ),

@@ -22,12 +22,11 @@ class _AddShoppingListPageState extends State<AddShoppingListPage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text("Add Shopping list"),
+            const Text("Alışveriş listesine ekle"),
             IconButton(
                 onPressed: () {
                   shoppingListBloc.add(AddShoppingListEvent(
-                      item:
-                          ShoppingListItem(text: _title.text)));
+                      item: ShoppingListItem(text: _title.text)));
 
                   Navigator.pop(context);
                 },
@@ -45,8 +44,8 @@ class _AddShoppingListPageState extends State<AddShoppingListPage> {
             child: TextField(
               controller: _title,
               decoration: InputDecoration(
-                  labelText: "Title",
-                  errorText: _title.text.isEmpty ? "required" : null),
+                  labelText: "Başlık",
+                  errorText: _title.text.isEmpty ? "gerekli" : null),
             ),
           )
         ],

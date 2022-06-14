@@ -72,7 +72,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                         context: context,
                         builder: (context) => AlertDialog(
                               title: const Text(
-                                  "Silmek İstediğinize Emin Misiniz"),
+                                  "Silmek istediğinize emin misiniz?"),
                               actions: <Widget>[
                                 TextButton(
                                   onPressed: () async {
@@ -111,11 +111,11 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
           bottom: const TabBar(
             isScrollable: true,
             tabs: [
-              Tab(child: Text("OVERVIEW")),
-              Tab(child: Text("INGREDIENTS")),
-              Tab(child: Text("DIRECTIONS")),
-              Tab(child: Text("NOTES")),
-              Tab(child: Text("PHOTO")),
+              Tab(child: Text("GENEL")),
+              Tab(child: Text("İÇİNDEKİLER")),
+              Tab(child: Text("TALİMATLAR")),
+              Tab(child: Text("NOTLAR")),
+              Tab(child: Text("FOTOĞRAF")),
             ],
           ),
         ),
@@ -130,22 +130,22 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                   TextField(
                     controller: _title,
                     decoration: InputDecoration(
-                        labelText: "Title",
-                        errorText: _title.text.isEmpty ? "required" : null),
+                        labelText: "Başlık",
+                        errorText: _title.text.isEmpty ? "gerekli" : null),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.width * 0.06),
                   TextField(
                     controller: _preparationTime,
                     keyboardType: TextInputType.number,
                     decoration:
-                        const InputDecoration(labelText: "Preparation time"),
+                        const InputDecoration(labelText: "Hazırlama süresi"),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.width * 0.06),
                   TextField(
                     controller: _cookingTime,
                     keyboardType: TextInputType.number,
                     decoration:
-                        const InputDecoration(labelText: "Cooking time"),
+                        const InputDecoration(labelText: "Pişirme süresi"),
                   ),
                 ],
               ),
@@ -162,7 +162,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                       TextField(
                         controller: _ingredients,
                         decoration: const InputDecoration(
-                          hintText: "Enter your ingredients",
+                          hintText: "Malzemeleri giriniz",
                         ),
                         scrollPadding: const EdgeInsets.all(20.0),
                         keyboardType: TextInputType.multiline,
@@ -186,7 +186,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                       TextField(
                         controller: _directions,
                         decoration: const InputDecoration(
-                          hintText: "Enter your directions",
+                          hintText: "Talimatları Giriniz",
                         ),
                         scrollPadding: const EdgeInsets.all(20.0),
                         keyboardType: TextInputType.multiline,
@@ -210,7 +210,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                       TextField(
                         controller: _notes,
                         decoration: const InputDecoration(
-                          hintText: "Enter your notes",
+                          hintText: "Notlarınızı Giriniz",
                         ),
                         scrollPadding: const EdgeInsets.all(20.0),
                         keyboardType: TextInputType.multiline,
@@ -233,26 +233,19 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                             height: MediaQuery.of(context).size.height * 0.5,
                             width: MediaQuery.of(context).size.width,
                           ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.1,
-                              ),
-                              ElevatedButton.icon(
-                                  onPressed: kameradanYukle,
-                                  icon: const Icon(Icons.add_a_photo_outlined),
-                                  label: const Text("Change photo")),
-                              ElevatedButton.icon(
-                                  onPressed: galeridenYukle,
-                                  icon: const Icon(
-                                      Icons.add_photo_alternate_outlined),
-                                  label:
-                                      const Text("Change photo from gallery")),
-                            ],
+                          const SizedBox(
+                            height: 25,
                           ),
+                          ElevatedButton.icon(
+                              onPressed: kameradanYukle,
+                              icon: const Icon(Icons.add_a_photo_outlined),
+                              label: const Text("Fotoğrafı değiştir")),
+                          ElevatedButton.icon(
+                              onPressed: galeridenYukle,
+                              icon: const Icon(
+                                  Icons.add_photo_alternate_outlined),
+                              label:
+                                  const Text("Fotoğrafı galeriden değiştir")),
                           ElevatedButton.icon(
                               onPressed: () {
                                 recipeBloc.add(
@@ -265,7 +258,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                                 });
                               },
                               icon: const Icon(Icons.add_a_photo_outlined),
-                              label: const Text("Remove photo")),
+                              label: const Text("Fotoğrafı sil")),
                         ],
                       )
                     : file != null
@@ -281,13 +274,12 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                               ElevatedButton.icon(
                                   onPressed: kameradanYukle,
                                   icon: const Icon(Icons.add_a_photo_outlined),
-                                  label: const Text("Take photo")),
+                                  label: const Text("Fotoğraf çek")),
                               ElevatedButton.icon(
                                   onPressed: galeridenYukle,
                                   icon: const Icon(
                                       Icons.add_photo_alternate_outlined),
-                                  label:
-                                      const Text("Choose photo from gallery")),
+                                  label: const Text("Galeriden fotoğraf seç")),
                             ],
                           ),
               ],

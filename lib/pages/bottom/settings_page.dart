@@ -7,6 +7,8 @@ import 'package:recipe_keep/pages/auth/login_page.dart';
 
 import 'package:settings_ui/settings_ui.dart';
 
+import '../../static/theme.dart';
+
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
@@ -21,47 +23,22 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    List colors = [
-      Colors.red,
-      Colors.orange,
-      Colors.blue,
-      Colors.green,
-      Colors.purple,
-      Colors.pink,
-      Colors.cyan,
-      Colors.amber,
-      Colors.lime,
-      Colors.teal,
-      Colors.brown,
-      Colors.grey,
-    ];
     final themeBloc = BlocProvider.of<ThemeBloc>(context);
-
+    List colors = Static.colors;
     return SettingsList(
       sections: [
         SettingsSection(
-          title: const Text('Language'),
-          tiles: <SettingsTile>[
-            SettingsTile.navigation(
-              leading: const Icon(Icons.language),
-              title: const Text('Language'),
-              value: const Text('English'),
-              onPressed: (context) {},
-            )
-          ],
-        ),
-        SettingsSection(
-          title: const Text('Theme'),
+          title: const Text('Tema'),
           tiles: <SettingsTile>[
             SettingsTile.navigation(
               leading: const Icon(Icons.format_paint),
-              title: const Text('Change Theme'),
+              title: const Text('Tema Değiştir'),
               onPressed: (context) {
                 showDialog(
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: const Text("Change Theme"),
+                        title: const Text("Tema Değiştir"),
                         shape: const RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(20))),
@@ -88,7 +65,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         ),
                         actions: [
                           TextButton(
-                            child: const Text("EVET"),
+                            child: const Text("TAMAM"),
                             onPressed: () {
                               Navigator.pop(context);
                             },
@@ -101,11 +78,11 @@ class _SettingsPageState extends State<SettingsPage> {
           ],
         ),
         SettingsSection(
-          title: const Text('Auth'),
+          title: const Text('Çıkış Yap'),
           tiles: <SettingsTile>[
             SettingsTile.navigation(
               leading: const Icon(Icons.logout),
-              title: const Text('Log out'),
+              title: const Text('Çıkış Yap'),
               onPressed: (context) {
                 _auth.signOut();
                 Navigator.pushAndRemoveUntil(
@@ -122,15 +99,3 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 }
-
-// ElevatedButton(
-//             onPressed: () async {
-//               _auth.signOut();
-//               Navigator.pushAndRemoveUntil(
-//                   context,
-//                   MaterialPageRoute(
-//                     builder: (context) => const LoginPage(),
-//                   ),
-//                   (route) => false);
-//             },
-//             child: const Text("Çıkış Yap")),

@@ -67,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: Column(
                       children: [
                         const Text(
-                          "Login",
+                          "Giriş Yap",
                           style: TextStyle(color: Colors.black, fontSize: 40),
                         ),
                         SizedBox(
@@ -117,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                                     },
                                     keyboardType: TextInputType.emailAddress,
                                     decoration: const InputDecoration(
-                                        hintText: "Email",
+                                        hintText: "E-posta",
                                         hintStyle:
                                             TextStyle(color: Colors.grey),
                                         border: InputBorder.none),
@@ -146,7 +146,7 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                     keyboardType: TextInputType.text,
                                     decoration: const InputDecoration(
-                                        hintText: "Password",
+                                        hintText: "Şifre",
                                         hintStyle:
                                             TextStyle(color: Colors.grey),
                                         border: InputBorder.none),
@@ -171,7 +171,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             child: const Center(
                               child: Text(
-                                "Login",
+                                "Giriş Yap",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),

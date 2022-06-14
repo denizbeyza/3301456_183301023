@@ -36,7 +36,7 @@ class _AddRecipePageState extends State<AddRecipePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
-                "New Repice",
+                "Yeni Tarif",
               ),
               IconButton(
                   onPressed: () async {
@@ -67,11 +67,11 @@ class _AddRecipePageState extends State<AddRecipePage> {
           bottom: TabBar(
             isScrollable: true,
             tabs: const [
-              Tab(child: Text("OVERVIEW")),
-              Tab(child: Text("INGREDIENTS")),
-              Tab(child: Text("DIRECTIONS")),
-              Tab(child: Text("NOTES")),
-              Tab(child: Text("PHOTO")),
+              Tab(child: Text("GENEL")),
+              Tab(child: Text("İÇİNDEKİLER")),
+              Tab(child: Text("TALİMATLAR")),
+              Tab(child: Text("NOTLAR")),
+              Tab(child: Text("FOTOĞRAF")),
             ],
           ),
         ),
@@ -86,20 +86,20 @@ class _AddRecipePageState extends State<AddRecipePage> {
                   TextField(
                     controller: _title,
                     decoration: InputDecoration(
-                        labelText: "Title",
-                        errorText: _title.text.isEmpty ? "required" : null),
+                        labelText: "Başlık",
+                        errorText: _title.text.isEmpty ? "gerekli" : null),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.width * 0.06),
                   TextField(
                     controller: _preparationTime,
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(labelText: "Preparation time"),
+                    decoration: InputDecoration(labelText: "Hazırlama süresi"),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.width * 0.06),
                   TextField(
                     controller: _cookingTime,
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(labelText: "Cooking time"),
+                    decoration: InputDecoration(labelText: "Pişirme süresi"),
                   ),
                 ],
               ),
@@ -116,7 +116,7 @@ class _AddRecipePageState extends State<AddRecipePage> {
                       TextField(
                         controller: _ingredients,
                         decoration: InputDecoration(
-                          hintText: "Enter your ingredients",
+                          hintText: "Malzemeleri giriniz",
                         ),
                         scrollPadding: EdgeInsets.all(20.0),
                         keyboardType: TextInputType.multiline,
@@ -140,7 +140,7 @@ class _AddRecipePageState extends State<AddRecipePage> {
                       TextField(
                         controller: _directories,
                         decoration: InputDecoration(
-                          hintText: "Enter your directions",
+                          hintText: "Talimatları Giriniz",
                         ),
                         scrollPadding: EdgeInsets.all(20.0),
                         keyboardType: TextInputType.multiline,
@@ -164,7 +164,7 @@ class _AddRecipePageState extends State<AddRecipePage> {
                       TextField(
                         controller: _notes,
                         decoration: InputDecoration(
-                          hintText: "Enter your notes",
+                          hintText: "Notlarınızı Giriniz",
                         ),
                         scrollPadding: EdgeInsets.all(20.0),
                         keyboardType: TextInputType.multiline,
@@ -194,11 +194,11 @@ class _AddRecipePageState extends State<AddRecipePage> {
                     ElevatedButton.icon(
                         onPressed: kameradanYukle,
                         icon: Icon(Icons.add_a_photo_outlined),
-                        label: Text("Take photo")),
+                        label: Text("Fotoğraf çek")),
                     ElevatedButton.icon(
                         onPressed: galeridenYukle,
                         icon: Icon(Icons.add_photo_alternate_outlined),
-                        label: Text("Choose photo from gallery")),
+                        label: Text("Galeriden fotoğraf seç")),
                   ],
                 ),
               ],

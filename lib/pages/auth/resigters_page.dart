@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:the_validator/the_validator.dart';
 
-
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
 
@@ -66,7 +65,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: Column(
                       children: [
                         const Text(
-                          "Register",
+                          "Kayıt ol",
                           style: TextStyle(color: Colors.black, fontSize: 40),
                         ),
                         SizedBox(
@@ -116,7 +115,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     },
                                     keyboardType: TextInputType.emailAddress,
                                     decoration: const InputDecoration(
-                                        hintText: "Email",
+                                        hintText: "E-posta",
                                         hintStyle:
                                             TextStyle(color: Colors.grey),
                                         border: InputBorder.none),
@@ -146,7 +145,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                       },
                                     ),
                                     decoration: const InputDecoration(
-                                        hintText: "Password",
+                                        hintText: "Şifre",
                                         hintStyle:
                                             TextStyle(color: Colors.grey),
                                         border: InputBorder.none),
@@ -176,7 +175,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                       },
                                     ),
                                     decoration: const InputDecoration(
-                                        hintText: "Congirm password",
+                                        hintText: "Şifre Doğrula",
                                         hintStyle:
                                             TextStyle(color: Colors.grey),
                                         border: InputBorder.none),
@@ -201,7 +200,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                             child: const Center(
                               child: Text(
-                                "Register",
+                                "Kayıt ol",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
@@ -253,7 +252,7 @@ class _RegisterPageState extends State<RegisterPage> {
             _firestore.collection("users").doc(firebaseUser.user!.uid).set({
               "id": firebaseUser.user!.uid,
               "email": firebaseUser.user!.email,
-              "shopping_lists":[],
+              "shopping_lists": [],
               "recipes": []
             });
             _auth.signOut();

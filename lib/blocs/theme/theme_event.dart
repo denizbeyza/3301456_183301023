@@ -8,3 +8,5 @@ class ChangeThemeEvent extends ThemeEvent {
   MaterialColor color;
   ChangeThemeEvent({required this.color});
 }
+
+class GetThemeEvent extends ThemeEvent {}

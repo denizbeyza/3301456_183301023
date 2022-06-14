@@ -129,10 +129,10 @@ class _HomePageState extends State<HomePage> {
   ];
   final _tabs = const [
     Tab(
-      text: "Recipes",
+      text: "Tariflerim",
     ),
     Tab(
-      text: "Favorites",
+      text: "Favorilerim",
     ),
   ];
   @override
