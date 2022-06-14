@@ -18,7 +18,15 @@ import 'package:flutter/services.dart';
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+      options: const FirebaseOptions(
+          apiKey: "AIzaSyAKmRpqwTzAzFeepoYdRcPmEOrPu_o-TGA",
+          authDomain: "recipe-keep-6c1fb.firebaseapp.com",
+          projectId: "recipe-keep-6c1fb",
+          storageBucket: "recipe-keep-6c1fb.appspot.com",
+          messagingSenderId: "1064156410460",
+          appId: "1:1064156410460:web:d18607c4216b7dc800ac99",
+          measurementId: "G-9M2YX1GXV7"));
 
   runApp(MultiBlocProvider(
     providers: [

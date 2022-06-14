@@ -43,6 +43,7 @@ class _AddShoppingListPageState extends State<AddShoppingListPage> {
                 right: MediaQuery.of(context).size.width * 0.05),
             child: TextField(
               controller: _title,
+              autofocus: true,
               decoration: InputDecoration(
                   labelText: "Başlık",
                   errorText: _title.text.isEmpty ? "gerekli" : null),
