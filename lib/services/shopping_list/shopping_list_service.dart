@@ -47,8 +47,9 @@ class ShoppingListService {
         shoppingListId.add(i);
       }
       return shoppingListId;
+    // ignore: empty_catches
     } catch (e) {
-      print("==================$e");
+      
     }
   }
 

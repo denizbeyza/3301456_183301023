@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:recipe_keep/main.dart';
-import 'package:recipe_keep/pages/auth/resigters_page.dart';
-import 'package:recipe_keep/widgets/google_button.dart';
+import '../../main.dart';
+import 'resigters_page.dart';
+import '../../widgets/google_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:the_validator/the_validator.dart';
@@ -290,6 +290,7 @@ class _LoginPageState extends State<LoginPage> {
         });
       }
 
+      // ignore: use_build_context_synchronously
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => const MainWidget()),

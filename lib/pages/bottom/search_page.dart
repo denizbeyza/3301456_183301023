@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_keep/widgets/search_widget.dart';
+import '../../widgets/search_widget.dart';
 
 class SearchRecipePage extends StatefulWidget {
   const SearchRecipePage({Key? key}) : super(key: key);

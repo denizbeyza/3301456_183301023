@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_cacheing/image_cacheing.dart';
-import 'package:recipe_keep/pages/recipe_detail.dart';
+import '../pages/recipe_detail.dart';
 
 import '../models/recipe.dart';
 

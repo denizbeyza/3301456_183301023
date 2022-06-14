@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recipe_keep/blocs/shopping_list/shopping_list_bloc.dart';
-import 'package:recipe_keep/widgets/shopping_list_item_widget.dart';
+import '../../blocs/shopping_list/shopping_list_bloc.dart';
+import '../../widgets/shopping_list_item_widget.dart';
 
 import '../../widgets/info_widget.dart';
 

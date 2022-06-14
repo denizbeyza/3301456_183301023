@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recipe_keep/models/shopping_list_item.dart';
+import '../models/shopping_list_item.dart';
 
 import '../blocs/shopping_list/shopping_list_bloc.dart';
 

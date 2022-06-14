@@ -4,17 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:recipe_keep/blocs/recipe/recipe_bloc.dart';
-import 'package:recipe_keep/blocs/shopping_list/shopping_list_bloc.dart';
-import 'package:recipe_keep/blocs/theme/theme_bloc.dart';
-import 'package:recipe_keep/pages/add_recipe_page.dart';
-import 'package:recipe_keep/pages/add_shopping_list_item.dart';
-import 'package:recipe_keep/pages/bottom/home_page.dart';
-import 'package:recipe_keep/pages/bottom/settings_page.dart';
-import 'package:recipe_keep/pages/bottom/shopping_list_page.dart';
-import 'package:recipe_keep/pages/auth/login_page.dart';
+import 'blocs/recipe/recipe_bloc.dart';
+import 'blocs/shopping_list/shopping_list_bloc.dart';
+import 'blocs/theme/theme_bloc.dart';
+import 'pages/add_recipe_page.dart';
+import 'pages/add_shopping_list_item.dart';
+import 'pages/bottom/home_page.dart';
+import 'pages/bottom/settings_page.dart';
+import 'pages/bottom/shopping_list_page.dart';
+import 'pages/auth/login_page.dart';
 import 'package:flutter/services.dart';
-import 'package:recipe_keep/services/theme/utils.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -47,7 +46,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late bool status;
-  ThemeUtils _themeUtils = ThemeUtils();
   loginControl() {
     if (FirebaseAuth.instance.currentUser == null) {
       status = false;

@@ -96,6 +96,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                         _directions.text,
                         _ingredients.text,
                         _notes.text,
+                        // ignore: prefer_if_null_operators
                         file != null ? file : null,
                         _preparationTime.text,
                         _title.text,

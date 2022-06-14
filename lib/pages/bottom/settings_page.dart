@@ -1,9 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recipe_keep/blocs/recipe/recipe_bloc.dart';
-import 'package:recipe_keep/blocs/theme/theme_bloc.dart';
-import 'package:recipe_keep/pages/auth/login_page.dart';
+import '../../blocs/theme/theme_bloc.dart';
+import '../auth/login_page.dart';
 
 import 'package:settings_ui/settings_ui.dart';
 

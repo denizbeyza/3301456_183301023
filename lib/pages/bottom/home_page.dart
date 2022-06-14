@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recipe_keep/widgets/food_widget.dart';
-import 'package:recipe_keep/widgets/info_widget.dart';
+import '../../widgets/food_widget.dart';
+import '../../widgets/info_widget.dart';
 
 import '../../blocs/recipe/recipe_bloc.dart';
 import '../../widgets/error_widget.dart';

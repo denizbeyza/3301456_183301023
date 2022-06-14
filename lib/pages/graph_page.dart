@@ -1,7 +1,7 @@
 import 'package:d_chart/d_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:recipe_keep/services/recipes/recipe_service.dart';
-import 'package:recipe_keep/services/shopping_list/shopping_list_service.dart';
+import '../services/recipes/recipe_service.dart';
+import '../services/shopping_list/shopping_list_service.dart';
 
 class GraphPage extends StatefulWidget {
   const GraphPage({Key? key}) : super(key: key);
@@ -57,7 +57,6 @@ class _GraphPageState extends State<GraphPage> {
   void getData() async {
     int shoppingListLengthLocal =
         await _shoppingListService.getShoppinglistsLength();
-    print(shoppingListLength);
     int recipesLengthLocal = await _recipesService.getRecipesLength();
 
     setState(() {
