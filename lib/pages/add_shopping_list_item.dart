@@ -18,37 +18,45 @@ class _AddShoppingListPageState extends State<AddShoppingListPage> {
     final shoppingListBloc = BlocProvider.of<ShoppingListBloc>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text("Alışveriş listesine ekle"),
-            IconButton(
-                onPressed: () {
-                  shoppingListBloc.add(AddShoppingListEvent(
-                      item: ShoppingListItem(text: _title.text)));
+      appBar: appBar(shoppingListBloc, context),
+      body: body(context),
+    );
+  }
 
-                  Navigator.pop(context);
-                },
-                icon: const Icon(Icons.save))
-          ],
-        ),
-      ),
-      body: Column(
+  Column body(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.05,
+              top: MediaQuery.of(context).size.width * 0.05,
+              right: MediaQuery.of(context).size.width * 0.05),
+          child: TextField(
+            controller: _title,
+            autofocus: true,
+            decoration: InputDecoration(
+                labelText: "Başlık",
+                errorText: _title.text.isEmpty ? "gerekli" : null),
+          ),
+        )
+      ],
+    );
+  }
+
+  AppBar appBar(ShoppingListBloc shoppingListBloc, BuildContext context) {
+    return AppBar(
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Padding(
-            padding: EdgeInsets.only(
-                left: MediaQuery.of(context).size.width * 0.05,
-                top: MediaQuery.of(context).size.width * 0.05,
-                right: MediaQuery.of(context).size.width * 0.05),
-            child: TextField(
-              controller: _title,
-              autofocus: true,
-              decoration: InputDecoration(
-                  labelText: "Başlık",
-                  errorText: _title.text.isEmpty ? "gerekli" : null),
-            ),
-          )
+          const Text("Alışveriş listesine ekle"),
+          IconButton(
+              onPressed: () {
+                shoppingListBloc.add(AddShoppingListEvent(
+                    item: ShoppingListItem(text: _title.text)));
+
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.save))
         ],
       ),
     );
