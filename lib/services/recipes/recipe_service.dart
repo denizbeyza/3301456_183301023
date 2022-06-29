@@ -9,15 +9,14 @@ class RecipesService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  addFavorite(Recipe recipe)async{
+  addFavorite(Recipe recipe) async {
     try {
-      _firestore.doc("recipes/${recipe.id}").update({
-      "is_favorite": true,
-    });
-
-    } catch (_) {
-      
-    }
+      if (recipe.isFavorite!) {
+        _firestore.doc("recipes/${recipe.id}").update({
+          "is_favorite": true,
+        });
+      }
+    } catch (_) {}
   }
 
   Future addRecipe(Recipe recipe, File? image) async {
@@ -33,19 +32,22 @@ class RecipesService {
       }
       recipe.isFavorite = false;
       // recipe nesne colection klasör .then future dödürdüğü için bekliyosun value dönüypor
-      _firestore.collection('recipes').add(recipe.toJson()).then((value) async {  // file private eğer alt tirey silseydik direkt ulaşılabilrdi
+      _firestore.collection('recipes').add(recipe.toJson()).then((value) async {
+        // file private eğer alt tirey silseydik direkt ulaşılabilrdi
         var data = await value.get();
 
         var dataData = data.data();
-        dataData!.addAll({"id": value.id}); // value.id dökümanın id si 
+        dataData!.addAll({"id": value.id}); // value.id dökümanın id si
         value.set(dataData);
         var user = await _firestore
             .collection("users")
-            .doc(_auth.currentUser!.uid) // login olmuş user i verir eğer varsa .uid yi firebase veriyor unic 
+            .doc(_auth.currentUser!
+                .uid) // login olmuş user i verir eğer varsa .uid yi firebase veriyor unic
             .get(); // o dmkümanı çağırıyor beyza dökümanını örneğin
         var userData = user.data();
         List<dynamic> recipes = userData!["recipes"];
-        recipes.add(value.id); // yemeğin id sini aktif olan user dökümanın içine vermiş
+        recipes.add(
+            value.id); // yemeğin id sini aktif olan user dökümanın içine vermiş
         _firestore
             .collection("users")
             .doc(_auth.currentUser!.uid)
@@ -94,7 +96,8 @@ class RecipesService {
     return recipes;
   }
 
-  removeRecipe(Recipe recipe) async {  //tarif siliyor
+  removeRecipe(Recipe recipe) async {
+    //tarif siliyor
     try {
       if (recipe.photo != null) {
         FirebaseStorage.instance
@@ -117,8 +120,16 @@ class RecipesService {
     }
   }
 
-  updateRecipe(Recipe recipe, cookingTime, directions, ingredients, notes, //firebase tarafındaki güncelleme işlemini yapıyor
-      photo, preparationTime, title, isFavorite) async {
+  updateRecipe(
+      Recipe recipe,
+      cookingTime,
+      directions,
+      ingredients,
+      notes, //firebase tarafındaki güncelleme işlemini yapıyor
+      photo,
+      preparationTime,
+      title,
+      isFavorite) async {
     String photoName = DateTime.now().toString();
     if (photo != null) {
       var reference =
