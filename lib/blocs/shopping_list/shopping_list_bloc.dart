@@ -52,16 +52,14 @@ class ShoppingListBloc extends Bloc<ShoppingListEvent, ShoppingListState> {
     }
   }
 
-  FutureOr<void> _removeShoppingListEvent(
-      RemoveShoppingListEvent event, Emitter<ShoppingListState> emit) {
+  Future<FutureOr<void>> _removeShoppingListEvent(
+      RemoveShoppingListEvent event, Emitter<ShoppingListState> emit) async {
     try {
+      await _service.removeShoppingListItem(event.item);
       lists.remove(event.item);
-      _service.removeShoppingListItem(event.item);
       emit(LoadedShoppingListState(shoppingLists: lists));
     } catch (_) {
       emit(ErrorShoppingListsState());
     }
   }
-
-  
 }

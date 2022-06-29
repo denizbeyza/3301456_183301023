@@ -178,11 +178,11 @@ class _AddRecipePageState extends State<AddRecipePage> {
             const Text(
               "Yeni Tarif",
             ),
-            IconButton(
+            IconButton( //kaydet butonu
                 onPressed: () async {
                   if (_title.text.isNotEmpty) {
                     recipeBloc.add(
-                      AddRecipeEvent(
+                      AddRecipeEvent(  // tetikle bloctaki o event çağırılıyor
                         image: image?.path ?? "",
                         recipe: Recipe(
                           title: _title.text,

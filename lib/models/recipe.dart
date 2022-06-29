@@ -22,7 +22,8 @@ class Recipe {
       this.cookingTime,
       this.title});
 
-  Recipe.fromJson(var json) {
+  Recipe.fromJson(var json) { // listeleme yaparken nesnelerle çalışmak için kullanulılr.
+
     id = json["id"];
     notes = json['notes'];
     directions = json['directions'];
@@ -35,9 +36,9 @@ class Recipe {
     isFavorite = json['is_favorite'];
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson() { // nesneden jsonformatına getirriken , kırmızı alanlar firebase ile aynı olmalı ,tojson eklerken 
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['notes'] = notes;
+    data['notes'] = notes; // clasımda tanımladığım alanlara atıyosun(notes,id,photo vs) value key e atanıyor.Firebase veri eklerken json formatına çeviriyoum ve güncelleme
     data['id'] = id;
     data['directions'] = directions;
     data['preparation_time'] = preparationTime;

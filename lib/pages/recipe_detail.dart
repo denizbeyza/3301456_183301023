@@ -54,118 +54,121 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
 
   TabBarView body(BuildContext context, RecipeBloc recipeBloc) {
     return TabBarView(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(
-                left: MediaQuery.of(context).size.width * 0.05,
-                right: MediaQuery.of(context).size.width * 0.05),
-            child: Column(
-              children: [
-                TextField(
-                  controller: _title,
-                  decoration: InputDecoration(
-                      labelText: "Başlık",
-                      errorText: _title.text.isEmpty ? "gerekli" : null),
-                ),
-                SizedBox(height: MediaQuery.of(context).size.width * 0.06),
-                TextField(
-                  controller: _preparationTime,
-                  keyboardType: TextInputType.number,
-                  decoration:
-                      const InputDecoration(labelText: "Hazırlama süresi"),
-                ),
-                SizedBox(height: MediaQuery.of(context).size.width * 0.06),
-                TextField(
-                  controller: _cookingTime,
-                  keyboardType: TextInputType.number,
-                  decoration:
-                      const InputDecoration(labelText: "Pişirme süresi"),
-                ),
-              ],
-            ),
+      children: [
+        Padding(
+          padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.05,
+              right: MediaQuery.of(context).size.width * 0.05),
+          child: Column(
+            children: [
+              TextField(
+                controller: _title,
+                decoration: InputDecoration(
+                    labelText: "Başlık",
+                    errorText: _title.text.isEmpty ? "gerekli" : null),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.width * 0.06),
+              TextField(
+                controller: _preparationTime,
+                keyboardType: TextInputType.number,
+                decoration:
+                    const InputDecoration(labelText: "Hazırlama süresi"),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.width * 0.06),
+              TextField(
+                controller: _cookingTime,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(labelText: "Pişirme süresi"),
+              ),
+            ],
           ),
-          Padding(
-            padding: EdgeInsets.only(
-                left: MediaQuery.of(context).size.width * 0.05,
-                right: MediaQuery.of(context).size.width * 0.05),
-            child: Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextField(
-                      controller: _ingredients,
-                      decoration: const InputDecoration(
-                        hintText: "Malzemeleri giriniz",
-                      ),
-                      scrollPadding: const EdgeInsets.all(20.0),
-                      keyboardType: TextInputType.multiline,
-                      maxLines: 250,
-                      autofocus: false,
-                    )
-                  ],
-                ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.05,
+              right: MediaQuery.of(context).size.width * 0.05),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextField(
+                    controller: _ingredients,
+                    decoration: const InputDecoration(
+                      hintText: "Malzemeleri giriniz",
+                    ),
+                    scrollPadding: const EdgeInsets.all(20.0),
+                    keyboardType: TextInputType.multiline,
+                    maxLines: 250,
+                    autofocus: false,
+                  )
+                ],
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(
-                left: MediaQuery.of(context).size.width * 0.05,
-                right: MediaQuery.of(context).size.width * 0.05),
-            child: Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextField(
-                      controller: _directions,
-                      decoration: const InputDecoration(
-                        hintText: "Talimatları Giriniz",
-                      ),
-                      scrollPadding: const EdgeInsets.all(20.0),
-                      keyboardType: TextInputType.multiline,
-                      maxLines: 250,
-                      autofocus: false,
-                    )
-                  ],
-                ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.05,
+              right: MediaQuery.of(context).size.width * 0.05),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextField(
+                    controller: _directions,
+                    decoration: const InputDecoration(
+                      hintText: "Talimatları Giriniz",
+                    ),
+                    scrollPadding: const EdgeInsets.all(20.0),
+                    keyboardType: TextInputType.multiline,
+                    maxLines: 250,
+                    autofocus: false,
+                  )
+                ],
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(
-                left: MediaQuery.of(context).size.width * 0.05,
-                right: MediaQuery.of(context).size.width * 0.05),
-            child: Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextField(
-                      controller: _notes,
-                      decoration: const InputDecoration(
-                        hintText: "Notlarınızı Giriniz",
-                      ),
-                      scrollPadding: const EdgeInsets.all(20.0),
-                      keyboardType: TextInputType.multiline,
-                      maxLines: 250,
-                      autofocus: false,
-                    )
-                  ],
-                ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.05,
+              right: MediaQuery.of(context).size.width * 0.05),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextField(
+                    controller: _notes,
+                    decoration: const InputDecoration(
+                      hintText: "Notlarınızı Giriniz",
+                    ),
+                    scrollPadding: const EdgeInsets.all(20.0),
+                    keyboardType: TextInputType.multiline,
+                    maxLines: 250,
+                    autofocus: false,
+                  )
+                ],
               ),
             ),
           ),
-          Column(
+        ),
+        SingleChildScrollView(
+          child: Column(
             children: [
               image != null
                   ? Column(
                       children: [
-                        ImageCacheing(
-                          url: image!,
-                          fit: BoxFit.cover,
-                          height: MediaQuery.of(context).size.height * 0.5,
-                          width: MediaQuery.of(context).size.width,
+                        Hero(
+                          tag: image!.hashCode,
+                          child: ImageCacheing(
+                            url: image!,
+                            fit: BoxFit.cover,
+                            height: MediaQuery.of(context).size.height * 0.5,
+                            width: MediaQuery.of(context).size.width,
+                          ),
                         ),
                         const SizedBox(
                           height: 25,
@@ -176,10 +179,9 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                             label: const Text("Fotoğrafı değiştir")),
                         ElevatedButton.icon(
                             onPressed: galeridenYukle,
-                            icon: const Icon(
-                                Icons.add_photo_alternate_outlined),
-                            label:
-                                const Text("Fotoğrafı galeriden değiştir")),
+                            icon:
+                                const Icon(Icons.add_photo_alternate_outlined),
+                            label: const Text("Fotoğrafı galeriden değiştir")),
                         ElevatedButton.icon(
                             onPressed: () {
                               recipeBloc.add(
@@ -202,8 +204,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.height * 0.3,
+                              height: MediaQuery.of(context).size.height * 0.3,
                             ),
                             ElevatedButton.icon(
                                 onPressed: kameradanYukle,
@@ -217,86 +218,90 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                           ],
                         ),
             ],
-          )
-        ],
-      );
+          ),
+        )
+      ],
+    );
   }
 
   AppBar appBar(BuildContext context, RecipeBloc recipeBloc) {
     return AppBar(
-        title: Row(
-          children: [
-            Expanded(
-                child: Text(
-              widget.recipe.title!,
-              overflow: TextOverflow.ellipsis,
-            )),
-            IconButton(
-                onPressed: () async {
-                  FirebaseFirestore.instance
-                      .doc("recipes/${widget.recipe.id}")
-                      .update({"is_favorite": !widget.recipe.isFavorite!});
-                  setState(() {
-                    widget.recipe.isFavorite = !widget.recipe.isFavorite!;
-                  });
-                },
-                icon: Icon(widget.recipe.isFavorite!
-                    ? Icons.star
-                    : Icons.star_border)),
-            IconButton(
-                onPressed: () async {
-                  showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                            title: const Text(
-                                "Silmek istediğinize emin misiniz?"),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () async {
-                                  recipeBloc.add(RemoveRecipeEvent(
-                                      recipe: widget.recipe));
-                                  Navigator.pop(context);
-                                  Navigator.pop(context);
-                                },
-                                child: const Text("EVET"),
-                              ),
-                            ],
-                          ));
-                },
-                icon: const Icon(
-                  Icons.delete,
-                )),
-            IconButton(
-                onPressed: () async {
-                  recipeBloc.add(UpdateRecipeEvent(
-                      _cookingTime.text,
-                      _directions.text,
-                      _ingredients.text,
-                      _notes.text,
-                      // ignore: prefer_if_null_operators
-                      file != null ? file : null,
-                      _preparationTime.text,
-                      _title.text,
-                      widget.recipe.isFavorite!,
-                      recipe: widget.recipe));
-                  Navigator.pop(context);
-                },
-                icon: const Icon(
-                  Icons.check,
-                ))
-          ],
-        ),
-        bottom: const TabBar(
-          isScrollable: true,
-          tabs: [
-            Tab(child: Text("GENEL")),
-            Tab(child: Text("İÇİNDEKİLER")),
-            Tab(child: Text("TALİMATLAR")),
-            Tab(child: Text("NOTLAR")),
-            Tab(child: Text("FOTOĞRAF")),
-          ],
-        ),
-      );
+      // tarif detayları kodlamadaki yeri
+      title: Row(
+        children: [
+          Expanded(
+              child: Text(
+            widget.recipe.title!,
+            overflow: TextOverflow.ellipsis,
+          )),
+          IconButton(
+              // favorilere ekle
+              onPressed: () async {
+                FirebaseFirestore.instance
+                    .doc("recipes/${widget.recipe.id}")
+                    .update({"is_favorite": !widget.recipe.isFavorite!});
+                setState(() {
+                  widget.recipe.isFavorite = !widget.recipe.isFavorite!;
+                });
+              },
+              icon: Icon(
+                  widget.recipe.isFavorite! ? Icons.star : Icons.star_border)),
+          IconButton(
+              // silmek için
+              onPressed: () async {
+                showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                          title:
+                              const Text("Silmek istediğinize emin misiniz?"),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () async {
+                                recipeBloc.add(RemoveRecipeEvent(
+                                    //event
+                                    recipe: widget.recipe));
+                                Navigator.pop(context);
+                                Navigator.pop(context);
+                              },
+                              child: const Text("EVET"),
+                            ),
+                          ],
+                        ));
+              },
+              icon: const Icon(
+                Icons.delete,
+              )),
+          IconButton(
+              onPressed: () async {
+                recipeBloc.add(UpdateRecipeEvent(
+                    _cookingTime.text,
+                    _directions.text,
+                    _ingredients.text,
+                    _notes.text,
+                    // ignore: prefer_if_null_operators
+                    file != null ? file : null,
+                    _preparationTime.text,
+                    _title.text,
+                    widget.recipe.isFavorite!,
+                    recipe: widget.recipe));
+                Navigator.pop(context);
+              },
+              icon: const Icon(
+                Icons.check,
+              ))
+        ],
+      ),
+      bottom: const TabBar(
+        isScrollable: true,
+        tabs: [
+          Tab(child: Text("GENEL")),
+          Tab(child: Text("İÇİNDEKİLER")),
+          Tab(child: Text("TALİMATLAR")),
+          Tab(child: Text("NOTLAR")),
+          Tab(child: Text("FOTOĞRAF")),
+        ],
+      ),
+    );
   }
 
   kameradanYukle() async {

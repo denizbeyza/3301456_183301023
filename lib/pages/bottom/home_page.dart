@@ -41,10 +41,10 @@ class _HomePageState extends State<HomePage> {
             child: RefreshIndicator(
               onRefresh: () {
                 final recipeBloc = BlocProvider.of<RecipeBloc>(context);
-                recipeBloc.add(RefreshRecipesEvent());
+                recipeBloc.add(RefreshRecipesEvent()); //yenilemek için
                 return _refreshCompleter.future;
               },
-              child: GridView.count(
+              child: GridView.count( // kare kare tarifler listeleme işi 
                   crossAxisCount: 3,
                   crossAxisSpacing: 5,
                   mainAxisSpacing: 5,

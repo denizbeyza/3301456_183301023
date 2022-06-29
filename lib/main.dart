@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:recipe_keep/pages/currency/currency_view.dart';
 import 'blocs/recipe/recipe_bloc.dart';
 import 'blocs/shopping_list/shopping_list_bloc.dart';
 import 'blocs/theme/theme_bloc.dart';
@@ -120,7 +121,21 @@ class _MainWidgetState extends State<MainWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CurrencyView()),
+                );
+              },
+              icon: const Icon(
+                Icons.currency_exchange,
+                color: Colors.black,
+              ))
+        ],
         backgroundColor: Colors.white,
+        centerTitle: true,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
