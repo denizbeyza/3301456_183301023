@@ -54,18 +54,16 @@ class _FoodWidgetState extends State<FoodWidget> {
         showMenu(
             items: <PopupMenuEntry>[
               PopupMenuItem(
-                child: Row(
-                  children: [
-                    IconButton(
-                        onPressed: () {
-                          recipeBloc.add(RemoveRecipeEvent(
-                              //event
-                              recipe: widget.recipe));
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(Icons.delete)),
-                    const Text("sil")
-                  ],
+                child: InkWell(
+                  onTap: () {
+                    recipeBloc.add(RemoveRecipeEvent(
+                        //event
+                        recipe: widget.recipe));
+                    Navigator.pop(context);
+                  },
+                  child: Row(
+                    children: const [Icon(Icons.delete), Text("sil")],
+                  ),
                 ),
               ),
             ],
