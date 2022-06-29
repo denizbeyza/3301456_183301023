@@ -99,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                                   child: TextFormField(
                                     onSaved: (newValue) {
                                       setState(() {
-                                        _email = newValue!;
+                                        _email = newValue!.replaceAll(" ", "");
                                       });
                                     },
                                     autofocus: false,
@@ -107,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                                       if (value!.isEmpty) {
                                         return "Doldurulması Zorunludur";
                                       } else {
-                                        if (EmailValidator.validate(value) !=
+                                        if (EmailValidator.validate(value.replaceAll(" ", "")) !=
                                             true) {
                                           return "Geçerli Bir E-*posta giriniz";
                                         } else {
